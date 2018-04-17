@@ -1,0 +1,42 @@
+{
+  "name": "Client",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "userId": {
+      "type": "number",
+      "id": true,
+      "generated": true,
+      "idInjection": true,
+      "forceId": true
+    },
+    "password": {
+      "type": "string"
+    },
+    "phoneNumber": {
+      "type": "string"
+    },
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "birthDay": {
+      "type": "date"
+    },
+    "address": {
+      "type": "string"
+    },
+    "locationId": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

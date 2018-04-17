@@ -1,0 +1,125 @@
+<link rel="stylesheet" type="text/css" href="//cdn-main1.123contactform.com/includes/css/backend/iconfont.css?ver=281c06cb5b" media="all" />
+
+<div id="wrapperHeader">
+        <div class='bootstrap-iso'>
+            <div  id="burger-buttonv2" class="push-toggle push-toggle-right pull-right " (click)="toggle()">
+                <div class="pull-right" data-toggle="push" data-target="#sidebar-right" data-distance="-350">
+                    <span class="i-md i123-filter" aria-hidden="true"></span>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div id="logo_white" class="header-cell">
+                <a [routerLink]="['/dashboard']">
+                    <img src="assets/images/logoa.png" title="votting" alt="votting"/>
+                </a>
+            </div>
+            <!-- Menu button -->
+          <div id="signup-request-buttons_outside" class="signup-request-buttons_outside visible-link-sm" *ngIf="!login">
+            <div class="menu_req_btn">
+              <a class="menu_main_cta " [routerLink]="['/signup']" >{{ 'Register' | translate }}</a>
+            </div>
+          </div>
+          <div id="signup-request-out" class="signup-request-buttons_outside visible-link-sm" *ngIf="login">
+            <div class="menu_req_btn">
+              <a class="menu_main_cta text-white" (click)="logout()" *ngIf="login">{{ 'Log Out' | translate }}</a>
+            </div>
+          </div>
+            <div id="sidebar_right_scoolbar">
+                <div id="sidebar-right"  class="navbar push-sidebar push-sidebar-right hidden">
+                    <div  class="signup-request-buttons_small " *ngIf="!login">
+                        <div class="visible-link-sm2">
+                          <div class="menu_req_btn">
+                            <a class="menu_main_cta "  [routerLink]="['/signup']"  >{{ 'Register' | translate }}</a>
+                          </div>
+                        </div>
+                    </div>
+                    <div  class="signup-request-buttons_small " *ngIf="login">
+                        <div class="visible-link-sm2">
+                          <div class="menu_req_btn">
+                            <a class="menu_main_cta text-white" (click)="logout()" *ngIf="login">{{ 'Log Out' | translate }}</a>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="link_menu_position">
+                        <div id="headerUses" class="menu_item_header  menu_header_dropdown ">
+                            <div  class="menu_item_link remove_pointer">
+                                <a title="Uses"  >{{ 'Proposals' | translate }}</a>
+                            </div>
+                            <div id="otherUsesLink" class="menu_header_dropdown-content">
+                              <div class="menu_header_nav-sublink">
+                                <a [routerLink]="['/create-proposal']" title="Web forms" >{{ 'Create proposal' | translate }}<div class="arrow_menu"> <span class="i-md i123-arrow_right" aria-hidden="true"></span></div></a>
+                              </div>
+                              <div class="menu_header_nav-sublink">
+                                <a [routerLink]="['/vote-proposal']" title="Web forms" >{{ 'Vote Community Proposal' | translate }}<div class="arrow_menu"> <span class="i-md i123-arrow_right" aria-hidden="true"></span></div></a>
+                              </div>
+                              <div class="menu_header_nav-sublink">
+                                <a [routerLink]="['/vote-gov-proposal']" title="Web forms" >{{ 'Vote Government Proposal' | translate }}<div class="arrow_menu"> <span class="i-md i123-arrow_right" aria-hidden="true"></span></div></a>
+                              </div>
+
+                              <div class="menu_header_nav-sublink">
+                                <a [routerLink]="['/my-proposal']"  title="Order Form" >{{ 'My proposal' | translate }}<div class="arrow_menu"> <span class="i-md i123-arrow_right" aria-hidden="true"></span></div></a>
+                              </div>
+                            </div>
+                        </div>
+                        <div id="headerPricing" class="menu_item_header">
+                            <div class="menu_item_link top-menu"><a [routerLink]="['/about']" title="Pricing">{{ 'About US' | translate }}<div class="arrow_menu"> <span class="i-md i123-arrow_right" aria-hidden="true"></span></div></a></div>
+                        </div>
+                        <div class="signup-request-buttons visible-link-big " *ngIf="!login">
+                          <div class="menu_req_btn">
+                            <a class="menu_main_cta "  [routerLink]="['/signup']"  >{{ 'Register' | translate }}</a>
+                          </div>
+                        </div>
+                        <div class="menu_login_btn top-menu " *ngIf="!login">
+                            <a class="menu_login_cta " [routerLink]="['/login']">
+                                {{ 'Log in' | translate }}
+                              <div class="arrow_menu">
+                                <span class="i-md i123-arrow_right" aria-hidden="true"></span>
+                              </div>
+                            </a>
+                        </div><!-- end Signup & Login buttons -->
+
+                            <div class="menu_item_header ">
+                                <div  class="menu_item_link remove_pointer">
+                                    <ul class="navbar-nav ml-auto">
+                                        <li class=" dropdown" ngbDropdown>
+                                            <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
+                                                <i class="fa fa-language"></i> {{ 'Language' | translate }} <b class="caret"></b>
+                                            </a>
+                                            <div class="dropdown-menu-right" ngbDropdownMenu>
+                                              <div >
+                                                <a class="dropdown-item" href="javascript:void(0)" (click)="changeLang('en')">
+                                                  {{ 'English' | translate }}
+                                                </a>
+                                              </div>
+                                              <div >
+                                                <a class="dropdown-item" href="javascript:void(0)" (click)="changeLang('fr')">
+                                                  {{ 'French' | translate }}
+                                                </a>
+                                              </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="menu_item_header " *ngIf="login">
+                                <div  class="menu_item_link remove_pointer">
+                                    <ul class="navbar-nav ml-auto">
+                                        <li class=" dropdown" ngbDropdown>
+                                            <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
+                                                 {{'Welcome' | translate}}: {{userName}} <b class="caret"></b>
+                                            </a>
+                                            <div class="dropdown-menu-right" ngbDropdownMenu>
+                                              <div class="signup-request-buttons visible-link-big " >
+                                                  <a href="javascript:void(0)" (click)="logout()" *ngIf="login">{{ 'Log Out' | translate }}</a>
+                                              </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                    </div>
+                </div><!-- end main_menu -->
+            </div>
+        </div><!-- end header -->
+    </div><!-- end headerContainer -->

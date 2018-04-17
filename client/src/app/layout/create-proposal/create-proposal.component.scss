@@ -1,0 +1,28 @@
+.mat-radio-button ~ .mat-radio-button {
+  padding-right: 16px;
+}
+mat-slider {
+  width: 300px;
+}
+.datePicker{
+  width:calc(100% - 35px);
+  display:inline-block;
+}
+.submit{
+  background-color:#0372f2;
+  width:73px;
+  margin:auto;
+}
+form{
+  margin-top:30px;
+}
+#createPrioriry{
+  width:50px;
+  border-radius:0.25rem;
+}
+.proposalTitle{
+  color:#006600;
+}
+.voteContent{
+  font-weight: bold;
+}

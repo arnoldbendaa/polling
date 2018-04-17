@@ -1,0 +1,42 @@
+<section id="intro" [@routerTransition]>
+
+<h1>&nbsp;</h1>
+<div class="row"  [@routerTransition] id="my-proposal">
+</div>
+
+<p>&nbsp;</p>
+<div class="row">
+  <div class="col-md-4">
+    <h2 class="title homeTitle">H&nbsp;o&nbsp;o&nbsp;p&nbsp;r&nbsp;o&nbsp;s</h2>
+  </div>
+  <div class="col-md-4 searchText">
+    <input type="text" class="form-control" (keyup.enter)="searchMyProposals()" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Search for a proposal to improve a community" type="search" [(ngModel)]="keyword">
+    <span class="input-group-addon" (click)="searchMyProposals()">
+        <i class="fa fa-search"></i>
+      </span>
+  </div>
+</div>
+<p>&nbsp;</p>
+<div class="row">
+  <div class="col-md-8 offset-2">
+    <app-location></app-location>
+  </div>
+</div>
+<p>&nbsp;</p>
+<div class="row" *ngIf="dataSource.length >0">
+  <div  class="col-md-8 offset-2" *ngFor="let proposal of dataSource">
+    <div class="proposal proposalTitle"  (click)="selectRow(proposal)"> {{proposal.title}}</div>
+    <div class="proposal proposalVote">{{proposal.votingResult}}</div>
+    <div class="proposal proposalVote">Voted Number:{{proposal.count}}</div>
+    <div class="proposal proposalDate">Date Submitted:{{proposal.date==undefined?"":proposal.date.substring(0,10)}}</div>
+    <div class="proposal proposalPriority">priority:{{proposal.avgPriority}}</div>
+    <div class="proposal proposalDetail">{{proposal.details}}</div>
+  </div>
+</div>
+
+<div class="row" *ngIf="dataSource.length < 1">
+  <div class="col-md-8 offset-2">
+    No Result
+  </div>
+</div>
+</section>

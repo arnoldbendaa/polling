@@ -1,0 +1,34 @@
+<div class="login-page" [@routerTransition]>
+    <div class="row justify-content-md-center">
+        <div class="col-md-4">
+            <a [routerLink]="['/dashboard']"><img src="assets/images/logo.jpg" width="150px" class="user-avatar" /></a>
+            <h3>{{ 'Online Polling System' | translate }}</h3>
+            <div class="container">
+                    <flash-messages></flash-messages>
+            </div>
+            <form role="form" (ngSubmit)="f.form.valid && Login()" #f="ngForm" type="POST"  novalidate>
+                <div class="form-content">
+                    <div class="form-group">
+                        <input type="text" name="mail" [(ngModel)]="mail" #username="ngModel"
+                         class="form-control input-underline input-lg"
+                         id="loginMail" placeholder="{{ 'Email' | translate }}" required>
+
+                    </div>
+                                <div *ngIf="f.submitted && !username.valid" class="help-block text-danger" >{{ 'Email is required and format should be' | translate }}</div>
+
+                    <div class="form-group">
+                        <input type="password" class="form-control input-underline input-lg"  placeholder="{{ 'Password' | translate }}" #ppp="ngModel" [(ngModel)]="password"  name="password" required>
+                    </div>
+                              <div *ngIf="f.submitted && !ppp.valid" class="help-block text-danger">{{ 'Password is required' | translate }}</div>
+
+                  <div class="form-group">                         <a [routerLink] = "['/lostPassword']">{{ 'Forget Password' | translate }}</a>
+                    </div>
+
+                </div>
+                <button class="btn rounded-btn"   >   {{ 'Log in' | translate }} </button>
+                &nbsp;
+                <a class="btn rounded-btn" [routerLink]="['/signup']">{{ 'Register' | translate }}</a>
+            </form>
+        </div>
+    </div>
+</div>

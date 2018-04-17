@@ -1,0 +1,85 @@
+<div class="login-page" [@routerTransition]>
+<div class="row">
+  <div class="row col-md-10 offset-1">
+    <div class="col-md-3 leftText">
+      <p>Make a positive change for your community. You have and idea about how you can improve your community then share it.</p>
+      <p>Membership is free the cost is what you lose by not trying to improve where you live </p>
+      <p>Your voice is amplified with the voices of your neighbors, spread the word to make your ideas shine. The strength of this system is you, together you and your neighbors can have a voice </p>
+      <p> You will not be emailed unsolicited email by Hoopros. Your email address will not be sold or given to any other third party for the purpose of advertising or sending unsolicited email</p>
+    </div>
+
+    <div class="col-md-6 mainContent">
+      <form (ngSubmit)="f.form.valid && signUp()" type="POST" #f="ngForm">
+        <div  class="row">
+          <div class="col-md-6">
+            <p class="bold">Username:</p>
+            <p>Name that will appear when you submit a proposal and select display username</p>
+          </div>
+          <div class="col-md-6">
+            <input type="text" name="username" class="form-control input-underline input-lg"
+                   [(ngModel)]="user.username" required maxlength="45" #username="ngModel" placeholder="{{ 'Full Name' | translate }}">
+            <small [hidden]="username.valid || (username.pristine && !f.submitted)" class="text-danger" >
+              {{ 'Username is required' | translate }}
+            </small>
+          </div>
+        </div>
+        <div  class="row">
+          <div class="col-md-6">
+            <p class="bold">Email Address:</p>
+            <p>We will send email you a confirmation verification email to activate your account. We will not sell or transfer your email address or send spam mail to your account</p>
+          </div>
+          <div class="col-md-6">
+            <input type="email" class="form-control input-underline input-lg" placeholder="{{ 'Email' | translate }}" name="email"
+                   [(ngModel)]="user.email" required pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" #email="ngModel" >
+            <small [hidden]="email.valid || (email.pristine && !f.submitted)" class="text-danger" >
+              {{ 'Email is required and format should be' | translate }} <i>john@doe.com</i>.
+            </small>
+          </div>
+        </div>
+        <div  class="row">
+          <div class="col-md-6">
+            <p class="bold">Password:</p>
+            <p>Enter a password with at least two numbers and one special character</p>
+          </div>
+          <div class="col-md-6">
+            <input type="password" class="form-control input-underline input-lg" placeholder="{{ 'Password' | translate }}" name="password"
+                   [(ngModel)]="user.password" required #password="ngModel">
+            <small class="text-danger" [hidden]="password.valid || (password.pristine && !f.submitted)">
+              {{ 'Password is required' | translate }}
+            </small>
+          </div>
+        </div>
+        <div  class="row">
+          <div class="col-md-6">
+            <p class="bold">Repassword:</p>
+            <p>Enter a password once more.</p>
+          </div>
+          <div class="col-md-6">
+            <input type="password" class="form-control input-underline input-lg" name="confirmPassword"
+                   [(ngModel)]="user.confirmPassword" placeholder="{{ 'Repeat Password' | translate }}" required validateEqual="password" #confirmPassword="ngModel">
+            <small [hidden]="confirmPassword.valid || (confirmPassword.pristine && !f.submitted)" class="text-danger" >
+              {{ 'Password mismatch' | translate }}
+            </small>
+          </div>
+        </div>
+        <div class="row">
+          <app-location></app-location>
+
+        </div>
+        <div class="container">
+          <flash-messages></flash-messages>
+        </div>
+        <button class="btn rounded-btn menu_main_cta"> {{ 'Register' | translate }}  </button>&nbsp;
+        <a class="btn rounded-btn" [routerLink]="['/login']"> {{ 'Log in' | translate }}  </a>
+      </form>
+    </div>
+
+    <div class="col-md-3 rightText">
+      <h3>Sign Up And Join In To Help Make Your Community A Better Place to Live!</h3>
+    </div>
+
+
+  </div>
+</div>
+
+</div>

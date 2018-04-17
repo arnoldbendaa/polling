@@ -1,0 +1,92 @@
+<div class="row" [@routerTransition]>
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+    <form role="form" (ngSubmit)="f.form.valid && submitProposal()" #f="ngForm" type="POST"  novalidate >
+      <app-location></app-location>
+
+      <fieldset class="form-group">
+        <label>{{ 'Location Link' | translate }}</label>
+        <input class="form-control"   #link="ngModel" [(ngModel)]="proposal.locationLink" name="locationLink" [disabled]="detailWindow" placeholder="{{ 'Input a location url.' | translate}}">
+      </fieldset>
+      <fieldset class="form-group">
+        <label>{{ 'Proposal Title' | translate }}</label>
+        <input class="form-control" required maxlength="45" #title="ngModel" [(ngModel)]="proposal.title" name="title" [disabled]="detailWindow" >
+        <small [hidden]="title.valid || (title.pristine && !f.submitted)"  class="text-danger" *ngIf="!detailWindow">
+          {{ 'The field is required' | translate }}
+        </small>
+      </fieldset>
+      <fieldset class="form-group">
+        <label>{{ 'Date Submitted' | translate }}</label>
+        <input class="form-control datePicker" placeholder="yyyy-mm-dd H:i:s" required maxlength="15" [disabled]="detailWindow"
+               name="dp" [(ngModel)]="proposal.dates" #date="ngModel"  ngbDatepicker #d="ngbDatepicker">
+
+        <button class="input-group-addon" (click)="d.toggle()" type="button">
+          <span class="fa fa-calendar"></span>
+        </button>
+        <small [hidden]="date.valid || (date.pristine && !f.submitted)" class="text-danger" *ngIf="!detailWindow">
+          {{ 'The field is required' | translate }}
+        </small>
+
+      </fieldset>
+      <fieldset class="form-group">
+        <label>{{ 'Proposal Details' | translate }}</label>
+        <textarea class="form-control" [(ngModel)]="proposal.details" name="details" #details="ngModel" required maxlength="1024" [disabled]="detailWindow"  ></textarea>
+        <small [hidden]="details.valid || (details.pristine && !f.submitted)"  class="text-danger" *ngIf="!detailWindow">
+          {{ 'The field is required' | translate }}
+        </small>
+      </fieldset>
+
+      <div class="row" *ngIf="detailWindow">
+        <div class="col-md-4">
+          <label class="proposalTitle">Average Vote</label>
+          <p class="voteContent">{{proposal.votingResult}}</p>
+        </div>
+
+        <div class="col-md-4">
+          <label class="proposalTitle">Average Priority</label>
+          <p class="voteContent">{{proposal.avgPriority}}</p>
+        </div>
+        <div class="col-md-4">
+          <label class="proposalTitle">Vote Count</label>
+          <p class="voteContent">{{proposal.count}}</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <!--<div class="col-md-6">Create user:{{proposal.userName}}</div>-->
+        <div class="col-md-4" *ngIf="!detailWindow">
+          {{ 'Display User Name' | translate }} &nbsp;
+          <mat-radio-group [(ngModel)]="proposal.displayUserName" name="display"  [disabled]="!canvote">
+            <mat-radio-button value="1" name="yes">Yes</mat-radio-button>
+            <mat-radio-button value="0" name="no">No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div class="col-md-4" *ngIf="detailWindow">
+          Vote on Proposal &nbsp;
+          <mat-radio-group [(ngModel)]="proposal.myVote" name="display"  [disabled]="!canvote">
+            <mat-radio-button value="1" name="yes">Yes</mat-radio-button>
+            <mat-radio-button value="0" name="no">No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div class="col-md-8">
+          {{ 'Priority' | translate }}(%)&nbsp;
+          <mat-slider  [disabled]="!canvote"
+            thumbLabel min="0"
+            max="100"
+            [(ngModel)]="proposal.myPriority"
+            name="something"></mat-slider>
+          <input matInput type="number" [(ngModel)]="proposal.myPriority" name="sss" id="createPrioriry"  [disabled]="!canvote">
+        </div>
+      </div>
+      <div class="container">
+        <flash-messages></flash-messages>
+      </div>
+      <div class="row large-text-center" [hidden]="detailWindow">
+        <button class="btn rounded-btn submit"   >   {{ 'Create' | translate }} </button>
+      </div>
+      <div class="row large-text-center" [hidden]="!detailWindow">
+        <button class="btn rounded-btn submit" [disabled]="!canvote"    >   Vote </button>
+      </div>
+    </form>
+  </div>
+</div>

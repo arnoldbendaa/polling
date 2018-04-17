@@ -1,0 +1,49 @@
+<h1>&nbsp;</h1>
+<div class="row" [@routerTransition]>
+
+  <div class="example-container mat-elevation-z8 col-md-8 offset-2 ">
+
+    <app-location></app-location>
+    <mat-table #table [dataSource]="dataSource">
+      <ng-container matColumnDef="myPriority">
+        <mat-header-cell *matHeaderCellDef> My Priority </mat-header-cell>
+        <mat-cell *matCellDef="let element" >
+          <div class="col-md-6" style="padding:0;">
+            <input matInput type="number" [(ngModel)]="element.myPriority" name="sss" style="width:100px;">
+          </div> </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="myVote">
+        <mat-header-cell *matHeaderCellDef> My Vote </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <mat-radio-group [(ngModel)]="element.myVote" name="display{{element.id}}">
+            <mat-radio-button value="1" name="yes">Yes</mat-radio-button>
+            <mat-radio-button value="0" name="no">No</mat-radio-button>
+          </mat-radio-group>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="effective">
+        <mat-header-cell *matHeaderCellDef> {{effectiveColumnName}}</mat-header-cell>
+        <mat-cell *matCellDef="let element" > {{element.effective}}  </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="votingResult">
+        <mat-header-cell *matHeaderCellDef> &nbsp;&nbsp;&nbsp;Vote Result </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.votingResult}}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="priority"  >
+        <mat-header-cell *matHeaderCellDef> Average Priority </mat-header-cell>
+        <mat-cell *matCellDef="let element" > {{element.avgPriority}} </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" ></mat-row>
+    </mat-table>
+
+  <div class="container">
+    <flash-messages></flash-messages>
+  </div>
+  <div class="row large-text-center">
+    <button class="btn rounded-btn submit" (click)="Vote()"  >   Vote </button>
+  </div>
+  </div>
+
+</div>

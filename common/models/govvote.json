@@ -1,0 +1,41 @@
+{
+  "name": "govvote",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "number",
+      "required": true
+    },
+    "userId": {
+      "type": "number",
+      "required": true
+    },
+    "voteTime": {
+      "type": "date"
+    },
+    "votingResult": {
+      "type": "number",
+      "required": true
+    },
+    "proposalId": {
+      "type": "number",
+      "required": true
+    },
+    "priority": {
+      "type": "number",
+      "required": true
+    },
+    "locationId":{
+      "type":"number",
+      "required":true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

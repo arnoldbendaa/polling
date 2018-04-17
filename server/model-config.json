@@ -1,0 +1,76 @@
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
+    ]
+  },
+  "User": {
+    "dataSource": "mysqlDs"
+  },
+  "AccessToken": {
+    "dataSource": "db",
+    "public": false
+  },
+  "ACL": {
+    "dataSource": "db",
+    "public": false
+  },
+  "RoleMapping": {
+    "dataSource": "db",
+    "public": false
+  },
+  "Role": {
+    "dataSource": "db",
+    "public": false
+  },
+  "Message": {
+    "dataSource": null
+  },
+  "Client": {
+    "dataSource": "mysqlDs",
+    "public": true,
+    "options": {
+      "emailVerificationRequired": true
+    }
+  },
+  "Email": {
+    "dataSource": "myEmailDataSource"
+  },
+  "proposal": {
+    "dataSource": "mysqlDs",
+    "public": true
+  },
+  "loginTest": {
+    "dataSource": "mysqlDs",
+    "public": true
+  },
+  "location": {
+    "dataSource": "mysqlDs",
+    "public": true
+  },
+  "vote": {
+    "dataSource": "mysqlDs",
+    "public": true
+  },
+  "test": {
+    "dataSource": "mysqlDs",
+    "public": true
+  },
+  "govproposal": {
+    "dataSource": "mysqlDs",
+    "public": true
+  },
+  "govvote": {
+    "dataSource": "mysqlDs",
+    "public": true
+  }
+}

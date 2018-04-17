@@ -1,0 +1,6 @@
+polling\client\src\app\config\globals.ts
+
+polling/server/config.json 
+	line3,5
+
+	https://rawgit.com/arnoldbendaa/test/master/

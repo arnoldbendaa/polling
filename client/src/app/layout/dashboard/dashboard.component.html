@@ -1,0 +1,66 @@
+<section id="intro" [@routerTransition]>
+  <p>&nbsp;</p>
+  <div class="row">
+    <div class="col-md-4">
+      <h2 class="title homeTitle">H&nbsp;o&nbsp;o&nbsp;p&nbsp;r&nbsp;o&nbsp;s</h2>
+    </div>
+    <div class="col-md-4 searchText">
+      <input type="text" class="form-control" (keyup.enter)="searchProposals()" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Search for a proposal to improve a community" type="search" [(ngModel)]="keyword">
+      <span class="input-group-addon" (click)="searchProposals()">
+        <i class="fa fa-search"></i>
+      </span>
+    </div>
+  </div>
+  <p>&nbsp;</p>
+  <div class="row">
+    <div class="col-md-8 offset-2">
+      <app-location></app-location>
+    </div>
+  </div>
+<p>&nbsp;</p>
+  <div class="row" *ngIf="dataSourceSearch.length >0">
+    <div  class="col-md-8 offset-2" *ngFor="let proposal of dataSourceSearch">
+      <div class="proposal proposalTitle"  (click)="selectRow(proposal)"> {{proposal.title}}</div>
+      <div class="proposal proposalVote">{{proposal.votingResult}}</div>
+      <div class="proposal proposalDate">Date Submitted:{{proposal.date.substring(0,10)}}</div>
+      <div class="proposal proposalPriority">Average Priority:{{proposal.avgPriority}}</div>
+      <div class="proposal proposalPriority">My Priority:{{proposal.myPriority}}</div>
+      <div class="proposal proposalDetail">{{proposal.details}}</div>
+      <div class="row" *ngIf="login && userLocationId==proposal.locationId">
+        <div class="col-md-5">
+          <ng-container >
+             My Vote
+              <mat-radio-group [(ngModel)]="proposal.myVote" name="display{{proposal.id}}" (change)="vote($event,proposal.id,proposal.myPriority)">
+                <mat-radio-button value="1" name="yes">Yes</mat-radio-button>
+                <mat-radio-button value="0" name="no">No</mat-radio-button>
+              </mat-radio-group>
+          </ng-container>
+        </div>
+        <div class="col-md-6">
+          <ng-container >
+             My Priority
+                <input matInput type="number" [(ngModel)]="proposal.myPriority" name="sss" (change)="changePriority(proposal.id,$event.target.value,proposal.myVote)">
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" style="margin: 30px;">
+    <div class="text-center col-md-8 offset-2">
+      <div *ngFor="let item of pagedItems">{{item.name}}</div>
+      <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+        <li [ngClass]="{disabled:pager.currentPage === 1}"><a (click)="setPage(1)">First</a></li>
+        <li [ngClass]="{disabled:pager.currentPage === 1}"><a (click)="setPage(pager.currentPage - 1)">Previous</a></li>
+        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}"><a (click)="setPage(page)">{{page}}</a></li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}"><a (click)="setPage(pager.currentPage + 1)">Next</a></li>
+        <li><a (click)="setPage(pager.totalPages)">Last</a></li></ul>
+      </div>
+  </div>
+  <div class="row" *ngIf="dataSourceSearch.length < 1">
+    <div class="col-md-8 offset-2">
+      No Result
+    </div>
+  </div>
+
+
+</section>

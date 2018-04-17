@@ -1,0 +1,49 @@
+{
+  "name": "proposal",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "number",
+      "required": true
+    },
+    "locationId": {
+      "type": "number",
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "details": {
+      "type": "string",
+      "required": true
+    },
+    "createdUser": {
+      "type": "number",
+      "required": true
+    },
+    "priority": {
+      "type": "number",
+      "required": true
+    },
+    "date": {
+      "type": "date",
+      "required": true
+    },
+    "displayUserName": {
+      "type": "number",
+      "required": true
+    },
+    "locationLink": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

@@ -1,0 +1,29 @@
+#main-container{
+  margin-top:70px;
+}
+.cdk-visually-hidden.mat-radio-input {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  outline: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+body {
+  font-family: Roboto,Helvetica Neue Light,Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;
+  margin: 0;
+  color: #333;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+a, input, li, ol, p, ul {
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 400;
+}
