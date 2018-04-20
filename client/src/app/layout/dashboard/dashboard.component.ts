@@ -39,8 +39,11 @@ export class DashboardComponent implements OnInit {
     }
   @ViewChild(LocationComponent)locationComponent:LocationComponent;
   ngOnInit() {
-    if(this.login)
+    if(this.login){
       this.userLocationId = JSON.parse(localStorage.user).locationId;
+      this.locationComponent.preLocationId = this.userLocationId;
+    }
+
 
     this.proposalService.getTopMonthProposals().subscribe(res=>{
         let data:Proposal;

@@ -9,13 +9,13 @@
         <mat-header-cell *matHeaderCellDef> My Priority </mat-header-cell>
         <mat-cell *matCellDef="let element" >
           <div class="col-md-6" style="padding:0;">
-            <input matInput type="number" [(ngModel)]="element.myPriority" name="sss" style="width:100px;">
+            <input matInput type="number" [(ngModel)]="element.myPriority" name="sss" style="width:100px;" [disabled]='!canVote'>
           </div> </mat-cell>
       </ng-container>
       <ng-container matColumnDef="myVote">
         <mat-header-cell *matHeaderCellDef> My Vote </mat-header-cell>
         <mat-cell *matCellDef="let element">
-          <mat-radio-group [(ngModel)]="element.myVote" name="display{{element.id}}">
+          <mat-radio-group [(ngModel)]="element.myVote" name="display{{element.id}}" [disabled]='!canVote'>
             <mat-radio-button value="1" name="yes">Yes</mat-radio-button>
             <mat-radio-button value="0" name="no">No</mat-radio-button>
           </mat-radio-group>
@@ -42,7 +42,7 @@
     <flash-messages></flash-messages>
   </div>
   <div class="row large-text-center">
-    <button class="btn rounded-btn submit" (click)="Vote()"  >   Vote </button>
+    <button class="btn rounded-btn submit" (click)="Vote()" [disabled]='!canVote'>   Vote </button>
   </div>
   </div>
 

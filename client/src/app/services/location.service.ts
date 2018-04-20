@@ -43,4 +43,8 @@ export class LocationService {
     else
       return -1;
   }
+  checkLocationContains(myId,locationId){
+    return this.http.get(serverUrl + 'api/locations/checkLocationContains?myId='+myId+'&locationId='+locationId)
+      .map(res => res);
+  }
 }

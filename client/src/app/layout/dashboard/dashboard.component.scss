@@ -1,3 +1,5 @@
+$fontSize1:6em;
+$fontSize2:6.5em;
 .search-input{
   margin-top: 71px;
 }
@@ -67,4 +69,49 @@ button{
 }
 .pagination li a{
   cursor:pointer;
+}
+.FirstLetter{
+  font-size:$fontSize1;
+  text-shadow: -10px 0px #333333;
+}
+.SecondLetter{
+  font-size:$fontSize2;
+  text-shadow: -7px 0px #333333;
+
+}
+.ThirdLetter{
+  font-size:$fontSize2;
+  text-shadow: -4px 0px #333333;
+
+}
+.fourthLetter{
+  font-size:$fontSize2;
+  text-shadow: -2px 0px #333333;
+
+}
+.fifthLetter{
+  font-size:$fontSize2;
+  text-shadow: 3px 0px #333333;
+
+}
+.sixthLetter{
+  font-size:$fontSize2;
+  text-shadow: 5px 0px #333333;
+
+}
+.seventhLetter{
+  font-size:$fontSize2;
+  text-shadow: 7px 0px #333333;
+
+}
+.Header span{
+  font-family:"Times New Roman",Times,Serif;
+  font-weight: 900;
+  color:rgb(4,96,248);
+}
+.Header{
+  margin:0;
+}
+.deciding{
+  color:rgb(34,171,27);
 }

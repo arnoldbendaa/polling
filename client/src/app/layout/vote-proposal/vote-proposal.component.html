@@ -23,6 +23,7 @@
 <div class="row" *ngIf="dataSourceSearch.length >0">
   <div  class="col-md-8 offset-2" *ngFor="let proposal of dataSourceSearch">
     <div class="proposal proposalTitle"  (click)="selectRow(proposal)"> {{proposal.title}}</div>
+    <div class="proposal"> <a  target="_blank" href="{{proposal.locationLink}}">Location</a> <a href="Javascript:void(0)" [routerLink]="['/proposal-detail/',proposal.id]">Detail</a> </div>
     <div class="proposal proposalVote">{{proposal.votingResult}}</div>
     <div class="proposal proposalDate">Date Submitted:{{proposal.date.substring(0,10)}}</div>
     <div class="proposal proposalPriority">Average Priority:{{proposal.avgPriority}}</div>

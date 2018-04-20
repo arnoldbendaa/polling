@@ -1,8 +1,21 @@
 <section id="intro" [@routerTransition]>
   <p>&nbsp;</p>
+  <div>
+    <p class="text-center Header">
+      <span class="FirstLetter">H&nbsp;</span>
+      <span class="SecondLetter">o&nbsp;</span>
+      <span class="ThirdLetter">o&nbsp;</span>
+      <span class="fourthLetter">p&nbsp;</span>
+      <span class="fifthLetter">r&nbsp;</span>
+      <span class="sixthLetter">o&nbsp;</span>
+      <span class="seventhLetter">s&nbsp;</span>
+    </p>
+    <p class="text-center deciding">Deciding on the development of our communities together</p>
+    <p class="text-center">Register to propose a great new idea for your community or vote on the proposals of other members of your community. This is the place to have your say!</p>
+  </div>
   <div class="row">
     <div class="col-md-4">
-      <h2 class="title homeTitle">H&nbsp;o&nbsp;o&nbsp;p&nbsp;r&nbsp;o&nbsp;s</h2>
+      <h2 class="title homeTitle"></h2>
     </div>
     <div class="col-md-4 searchText">
       <input type="text" class="form-control" (keyup.enter)="searchProposals()" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Search for a proposal to improve a community" type="search" [(ngModel)]="keyword">
@@ -21,6 +34,7 @@
   <div class="row" *ngIf="dataSourceSearch.length >0">
     <div  class="col-md-8 offset-2" *ngFor="let proposal of dataSourceSearch">
       <div class="proposal proposalTitle"  (click)="selectRow(proposal)"> {{proposal.title}}</div>
+      <div class="proposal"> <a  target="_blank" href="{{proposal.locationLink}}">Location</a> <a href="Javascript:void(0)" [routerLink]="['/proposal-detail/',proposal.id]">Detail</a> </div>
       <div class="proposal proposalVote">{{proposal.votingResult}}</div>
       <div class="proposal proposalDate">Date Submitted:{{proposal.date.substring(0,10)}}</div>
       <div class="proposal proposalPriority">Average Priority:{{proposal.avgPriority}}</div>

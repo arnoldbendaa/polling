@@ -18,28 +18,41 @@ export class VoteGovProposalComponent implements OnInit {
   displayedColumns = ['myPriority','myVote','effective','votingResult',  'priority'];
   @ViewChild(LocationComponent)locationComponent:LocationComponent;
   effectiveColumnName = "Select a Country or Province";
+  canVote = true;
   constructor(
     private proposalService:ProposalService,
     private locationService:LocationService,
     private router:Router,
 
   ) {
-    this.locationService.change.subscribe(locationChanged=>{
-      console.log("change called");
-
+    this.locationService.change.subscribe(locationChanged=> {
       let url = this.router.url;
       if(url.indexOf("vote-gov-proposal")>0){
+
+      console.log("change called");
+      let userLocationId = JSON.parse(localStorage.user).locationId;
+      let locationId = this.locationService.getLocationIdFromLocation(this.locationComponent.location);
+      this.locationService.checkLocationContains(userLocationId, locationId).subscribe(res=> {
+        let data:Proposal;
+        data=<Proposal>res;
+        this.canVote = data.proposals;
+        });
+
+
+      let url = this.router.url;
+      if (url.indexOf("vote-gov-proposal") > 0) {
         this.getGovProposalInLocation();
         let depth = this.locationService.getLocationDepthFromLocation(this.locationComponent.location);
-        if(depth==0)
+        if (depth == 0)
           this.effectiveColumnName = "Federal Government is doing a good job in these areas:";
-        else if(depth==1)
+        else if (depth == 1)
           this.effectiveColumnName = "Prov/State Government is doing a good job in these areas:";
-        else if(depth==2)
+        else if (depth == 2)
           this.effectiveColumnName = "City Government is doing a good job in these areas:";
-        else if(depth==3)
+        else if (depth == 3)
           this.effectiveColumnName = "Community is doing a good job in these areas";
       }
+    }
     })
 
   }
@@ -48,6 +61,9 @@ export class VoteGovProposalComponent implements OnInit {
     // this.locationComponent.location.country = 1;
     // this.getGovProposalInLocation();
     this.locationComponent.voteGov = true;
+  }
+  setCanVote(res){
+    this.canVote = res.checkResult;
   }
   getGovProposalInLocation(){
     let locationId = this.locationService.getLocationIdFromLocation(this.locationComponent.location);
