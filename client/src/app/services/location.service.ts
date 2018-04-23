@@ -47,4 +47,19 @@ export class LocationService {
     return this.http.get(serverUrl + 'api/locations/checkLocationContains?myId='+myId+'&locationId='+locationId)
       .map(res => res);
   }
+  getProvinces(countryId,countryName){
+    return this.http.get(serverUrl + 'api/locations/getProvinces?countryId='+countryId+"&countryName="+countryName).map(res=>res);
+  }
+  getCountries(){
+    return this.http.get(serverUrl + "api/locations/getCountries").map(res=>res);
+  }
+  getCities(countryId,provinceId,provinceName){
+    return this.http.get(serverUrl + "api/locations/getCities?provinceId="+provinceId+"&provinceName="+provinceName+"&countryId="+countryId).map(res=>res);
+  }
+  getCommunities(provinceId,cityId,cityName){
+    return this.http.get(serverUrl + "api/locations/getCommunities?provinceId="+provinceId + "&cityId="+cityId+"&cityName="+cityName).map(res=>res);
+  }
+  createCommunity(cityId,communityName){
+    return this.http.get(serverUrl+"api/locations/createCommunity?cityId="+cityId+"&communityName="+communityName).map(res=>res);
+  }
 }

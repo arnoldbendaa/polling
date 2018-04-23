@@ -1,4 +1,7 @@
-$topnav-background-color: #777;
+$topnav-background-color: #FFF;
+$fontSize1:6em;
+$fontSize2:6.5em;
+
 :host {
     display: block;
 }
@@ -39,7 +42,7 @@ $topnav-background-color: #777;
         -webkit-border-radius: 50px;
         border-radius: 50px;
         color: rgba(255, 255, 255, 0.8);
-        background: $topnav-background-color;
+        background: #555;
         border: 2px solid rgba(255, 255, 255, 0.8);
         font-size: 18px;
         line-height: 40px;
@@ -84,12 +87,61 @@ $topnav-background-color: #777;
             color: rgba(255, 255, 255, 0.6) !important;
         }
     }
-    .form-content {
-        padding: 40px 0 0 0;
-    }
     .user-avatar {
         -webkit-border-radius: 50%;
         border-radius: 50%;
         border: 2px solid #fff;
     }
+}
+.FirstLetter{
+  font-size:$fontSize1;
+  text-shadow: -10px 0px #333333;
+}
+.SecondLetter{
+  font-size:$fontSize2;
+  text-shadow: -7px 0px #333333;
+
+}
+.ThirdLetter{
+  font-size:$fontSize2;
+  text-shadow: -4px 0px #333333;
+
+}
+.fourthLetter{
+  font-size:$fontSize2;
+  text-shadow: -2px 0px #333333;
+
+}
+.fifthLetter{
+  font-size:$fontSize2;
+  text-shadow: 3px 0px #333333;
+
+}
+.sixthLetter{
+  font-size:$fontSize2;
+  text-shadow: 5px 0px #333333;
+
+}
+.seventhLetter{
+  font-size:$fontSize2;
+  text-shadow: 7px 0px #333333;
+
+}
+.Header span{
+  font-family:"Times New Roman",Times,Serif;
+  font-weight: 900;
+  color:rgb(4,96,248);
+}
+.Header{
+  margin:0;
+  border-bottom:2px solid #999;
+}
+.LoginToHoopros{
+  color:#555;
+  text-transform: uppercase;
+  font-family: "Times New Roman",Times,Serif;
+  margin:0;
+  .First{
+    font-size:1.3em;
+  }
 }

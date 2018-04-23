@@ -62,24 +62,47 @@
             </small>
           </div>
         </div>
-        <div  class="row">
-          <div class="col-md-6">
-            <p class="bold">Repassword:</p>
-            <p>Enter a password once more.</p>
-          </div>
-          <div class="col-md-6">
-            <input list="browsers">
-            <datalist id="browsers">
-              <option value="Internet Explorer">
-              <option value="Firefox">
-              <option value="Chrome">
-              <option value="Opera">
-              <option value="Safari">
-            </datalist>
+        <div class="row"><h6>&nbsp;Country</h6></div>
+        <div class="row">
+          <div class="col-md-6 select-editable">
+            <select onchange="this.nextElementSibling.value=this.value" (change)="changedCountry($event)">
+              <option value="">Please Select a Country</option>
+              <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
+            </select>
+            <input type="text" name="format" (change)="changedCountry($event)" [(ngModel)]="loc.country.name" />
           </div>
         </div>
+        <div class="row"><h6>&nbsp;Province</h6></div>
         <div class="row">
-          <app-location></app-location>
+          <div class="col-md-6 select-editable">
+            <select onchange="this.nextElementSibling.value=this.value" (change)="changedProvince($event)">
+              <option value="Please Select a Province">Please Select a Province</option>
+              <option *ngFor="let province of provinces" [value]="province.name">{{province.name}}</option>
+            </select>
+            <input type="text" name="province"  (change)="changedProvince($event)" [(ngModel)]="loc.province.name"/>
+          </div>
+        </div>
+    <div class="row"><h6>&nbsp;City</h6></div>
+    <div class="row">
+          <div class="col-md-6 select-editable">
+            <select onchange="this.nextElementSibling.value=this.value" (change)="changedCity($event)">
+              <option value="Please Select a City">Please Select a City</option>
+              <option *ngFor="let city of cities" [value]="city.name">{{city.name}}</option>
+            </select>
+            <input type="text" name="city"  (change)="changedCity($event)" [(ngModel)]="loc.city.name"/>
+          </div>
+    </div>
+
+        <div class="row"><h6>&nbsp;Community</h6></div>
+        <div class="row">
+
+          <div class="col-md-6 select-editable">
+            <select onchange="this.nextElementSibling.value=this.value" (change)="changedCommunity($event)">
+              <option value="Please Select a City">Please Select a Community</option>
+              <option *ngFor="let community of communities" [value]="community.name">{{community.name}}</option>
+            </select>
+            <input type="text" name="community"  (change)="changedCommunity($event)" [(ngModel)]="loc.comunity.name"/>
+          </div>
 
         </div>
         <div class="container">
@@ -93,8 +116,6 @@
     <div class="col-md-3 rightText">
       <h3>Sign Up And Join In To Help Make Your Community A Better Place to Live!</h3>
     </div>
-
-
   </div>
 </div>
 

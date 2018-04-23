@@ -17,3 +17,30 @@
   background-color:#0372f2;
   color:white;
 }
+.select-editable {
+  position:relative; background-color:white; border:solid #ced4da 1px;  width:120px; height:38px;
+  border-radius: 0.25rem;
+}
+.select-editable select {
+  position:absolute; top:0px; left:0px;
+  font-size:14px; border:none; width:calc(100% - 0.6rem);
+  margin:0;
+  height:36px;
+  margin-left:3px;
+  color:#888;
+  color: #34a853;
+  font-weight: 900;
+  font-size:1rem;
+
+}
+.select-editable input {
+  position:absolute; top:0px;
+  left:0px; width:calc(100% - 20px - 0.6rem); padding:1px; font-size:12px;
+  border:none;margin-top:0;
+  height:35px;
+  margin-left:3px;
+  color: #34a853;
+  font-weight: 900;
+  font-size:1rem;
+}
+.select-editable select:focus, .select-editable input:focus { outline:none; }
