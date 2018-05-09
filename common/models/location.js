@@ -29,7 +29,7 @@ module.exports = function(Location) {
       var countryId = req.query.countryId;
       var countryName = req.query.countryName;
       if(countryId==-1){
-        Location.create({name:countryName,parentId:0,depth:0},function(err,instance){
+        Location.findOrCreate({where:{name:countryName,parentId:0,depth:0}},{name:countryName,parentId:0,depth:0},function(err,instance){
           Location.getCountries(cb);
         })
       }else{
@@ -43,7 +43,7 @@ module.exports = function(Location) {
       var provinceId = req.query.provinceId;
       var provinceName = req.query.provinceName;
       if(provinceId==-1){
-        Location.create({name:provinceName,parentId:countryId,depth:1},function(err,instance){
+        Location.findOrCreate({where:{name:provinceName,parentId:countryId,depth:1}},{name:provinceName,parentId:countryId,depth:1},function(err,instance){
           Location.find({where:{depth:1,parentId:countryId},fields:{id:true,name:true}},function(err,instance){
             cb(null,instance);
           })
@@ -59,7 +59,7 @@ module.exports = function(Location) {
       var cityId = req.query.cityId;
       var cityName = req.query.cityName;
       if(cityId==-1){
-        Location.create({name:cityName,parentId:provinceId,depth:2},function(err,instance){
+        Location.findOrCreate({where:{name:cityName,parentId:provinceId,depth:2}},{name:cityName,parentId:provinceId,depth:2},function(err,instance){
           Location.find({where:{depth:2,parentId:provinceId},fields:{id:true,name:true}},function(err,instance){
             cb(null,instance);
           })
@@ -75,7 +75,7 @@ module.exports = function(Location) {
       var cityId = req.query.cityId;
       var communityName = req.query.communityName;
       if(cityId>0){
-        Location.create({name:communityName,parentId:cityId,depth:3},function(err,instance){
+        Location.findOrCreate({where:{name:communityName,parentId:cityId,depth:3}},{name:communityName,parentId:cityId,depth:3},function(err,instance){
           Location.find({where:{depth:3,parentId:cityId},fields:{id:true,name:true}},function(err,instance){
             cb(null,instance);
           })

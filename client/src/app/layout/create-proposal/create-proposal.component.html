@@ -3,11 +3,12 @@
   <div class="col-md-8">
     <form role="form" (ngSubmit)="f.form.valid && submitProposal()" #f="ngForm" type="POST"  novalidate >
       <app-location></app-location>
-
+<p>&nbsp;</p>
       <fieldset class="form-group">
         <a href="{{proposal.locationLink}}" target='_blank'>{{ 'Location Link' | translate }}</a>
         <input class="form-control"   #link="ngModel" [(ngModel)]="proposal.locationLink" name="locationLink" [disabled]="detailWindow" placeholder="{{ 'Input a location url.' | translate}}">
       </fieldset>
+      <p>&nbsp;</p>
       <fieldset class="form-group">
         <label>{{ 'Proposal Title' | translate }}</label>
         <input class="form-control" required maxlength="45" #title="ngModel" [(ngModel)]="proposal.title" name="title" [disabled]="detailWindow" >
@@ -15,12 +16,13 @@
           {{ 'The field is required' | translate }}
         </small>
       </fieldset>
+      <p>&nbsp;</p>
       <fieldset class="form-group">
         <label>{{ 'Date Submitted' | translate }}</label>
-        <input class="form-control datePicker" placeholder="yyyy-mm-dd H:i:s" required maxlength="15" [disabled]="detailWindow"
+        <input class="form-control datePicker" placeholder="yyyy-mm-dd H:i:s" required maxlength="15" disabled
                name="dp" [(ngModel)]="proposal.dates" #date="ngModel"  ngbDatepicker #d="ngbDatepicker">
 
-        <button class="input-group-addon" (click)="d.toggle()" type="button">
+        <button class="input-group-addon" (click)="d.toggle()" type="button" disabled>
           <span class="fa fa-calendar"></span>
         </button>
         <small [hidden]="date.valid || (date.pristine && !f.submitted)" class="text-danger" *ngIf="!detailWindow">
@@ -28,6 +30,7 @@
         </small>
 
       </fieldset>
+      <p>&nbsp;</p>
       <fieldset class="form-group">
         <label>{{ 'Proposal Details' | translate }}</label>
         <textarea class="form-control" [(ngModel)]="proposal.details" name="details" #details="ngModel" required maxlength="1024" [disabled]="detailWindow"  ></textarea>
@@ -35,7 +38,7 @@
           {{ 'The field is required' | translate }}
         </small>
       </fieldset>
-
+      <p>&nbsp;</p>
       <div class="row" *ngIf="detailWindow">
         <div class="col-md-4">
           <label class="proposalTitle">Average Vote</label>
@@ -81,6 +84,7 @@
       <div class="container">
         <flash-messages></flash-messages>
       </div>
+      <p>&nbsp;</p>
       <div class="row large-text-center" [hidden]="detailWindow">
         <button class="btn rounded-btn submit"   >   {{ 'Create' | translate }} </button>
       </div>
@@ -88,5 +92,7 @@
         <button class="btn rounded-btn submit" [disabled]="!canvote"    >   Vote </button>
       </div>
     </form>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
   </div>
 </div>

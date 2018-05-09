@@ -3,8 +3,8 @@
 
 <p>&nbsp;</p>
 <div class="row">
-  <div class="col-md-4">
-    <h2 class="title homeTitle">H&nbsp;o&nbsp;o&nbsp;p&nbsp;r&nbsp;o&nbsp;s</h2>
+  <div class="col-md-4" style="text-align:right;padding-right:0;padding-top:10px">
+    <img src="assets/images/Hoopros_Name.png" style="height:30px;"/>
   </div>
   <div class="col-md-4 searchText">
     <input type="text" class="form-control" (keyup.enter)="searchProposals()" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Search for a proposal to improve a community" type="search" [(ngModel)]="keyword">
@@ -23,11 +23,13 @@
 <div class="row" *ngIf="dataSourceSearch.length >0">
   <div  class="col-md-8 offset-2" *ngFor="let proposal of dataSourceSearch">
     <div class="proposal proposalTitle"  (click)="selectRow(proposal)"> {{proposal.title}}</div>
-    <div class="proposal"> <a  target="_blank" href="{{proposal.locationLink}}">Location</a> <a href="Javascript:void(0)" [routerLink]="['/proposal-detail/',proposal.id]">Detail</a> </div>
+    <div class="proposal proposalLink"> <a  target="_blank" href="{{proposal.locationLink}}">Location</a> <a href="Javascript:void(0)" [routerLink]="['/proposal-detail/',proposal.id]">Detail</a> </div>
     <div class="proposal proposalVote">{{proposal.votingResult}}</div>
     <div class="proposal proposalDate">Date Submitted:{{proposal.date.substring(0,10)}}</div>
     <div class="proposal proposalPriority">Average Priority:{{proposal.avgPriority}}</div>
     <div class="proposal proposalPriority">My Priority:{{proposal.myPriority}}</div>
+    <div class="proposal proposalUserName" *ngIf="proposal.displayUserName">Created By:{{proposal.userName}}</div>
+
     <div class="proposal proposalDetail">{{proposal.details}}</div>
     <div class="row" *ngIf="login && userLocationId==proposal.locationId">
       <div class="col-md-5">

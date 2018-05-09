@@ -40,8 +40,10 @@ export class VoteProposalComponent implements OnInit {
     }
     @ViewChild(LocationComponent)locationComponent:LocationComponent;
     ngOnInit() {
-        if(this.login)
+        if(this.login){
             this.userLocationId = JSON.parse(localStorage.user).locationId;
+            this.locationComponent.preLocationId = this.userLocationId;
+        }
 
         this.searchProposals();
         this.locationService.change.subscribe(locationChanged=>{
@@ -82,6 +84,10 @@ export class VoteProposalComponent implements OnInit {
     }
 
     setPage(page:number){
+        if(this.pager.totalPages==0){
+            this.dataSourceSearch=[];
+        }
+
         if (page < 1 || page > this.pager.totalPages) {
             return;
         }

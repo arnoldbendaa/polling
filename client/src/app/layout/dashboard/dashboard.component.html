@@ -1,16 +1,17 @@
 <section id="intro" [@routerTransition]>
   <p>&nbsp;</p>
   <div>
+    <h6 class="text-center homeTitle" style="margin-bottom:0;">Hoopros Lets You Propose New Ideas To Your Neighbors On</h6>
+    <h6 class="text-center homeTitle" style="margin-bottom:20px;">How to Improve the Community You Live In</h6>
     <p class="text-center Header">
-      <span class="FirstLetter">H&nbsp;</span>
-      <span class="SecondLetter">o&nbsp;</span>
-      <span class="ThirdLetter">o&nbsp;</span>
-      <span class="fourthLetter">p&nbsp;</span>
-      <span class="fifthLetter">r&nbsp;</span>
-      <span class="sixthLetter">o&nbsp;</span>
-      <span class="seventhLetter">s&nbsp;</span>
+      <img src="assets/images/Hoopros_Name.png" />
     </p>
-    <p class="text-center deciding">Deciding on the development of our communities together</p>
+    <p class="text-center menuBtns">
+      <a [routerLink]="['/create-proposal']" title="Create a new proposal on how you can improve your community." >Create A New Proposal</a>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <a [routerLink]="['/vote-proposal']" title="Vote on the community proposals created by other members of your community" >Vote On Proposals</a>
+    </p>
+    <p class="text-center deciding">&nbsp;Deciding on the development of our communities together</p>
     <p class="text-center">Register to propose a great new idea for your community or vote on the proposals of other members of your community. This is the place to have your say!</p>
   </div>
   <div class="row">
@@ -34,11 +35,12 @@
   <div class="row" *ngIf="dataSourceSearch.length >0">
     <div  class="col-md-8 offset-2" *ngFor="let proposal of dataSourceSearch">
       <div class="proposal proposalTitle"  (click)="selectRow(proposal)"> {{proposal.title}}</div>
-      <div class="proposal"> <a  target="_blank" href="{{proposal.locationLink}}">Location</a> <a href="Javascript:void(0)" [routerLink]="['/proposal-detail/',proposal.id]">Detail</a> </div>
+      <div class="proposal proposalLink"> <a  target="_blank" href="{{proposal.locationLink}}">Location</a> <a href="Javascript:void(0)" [routerLink]="['/proposal-detail/',proposal.id]">Detail</a> </div>
       <div class="proposal proposalVote">{{proposal.votingResult}}</div>
       <div class="proposal proposalDate">Date Submitted:{{proposal.date.substring(0,10)}}</div>
       <div class="proposal proposalPriority">Average Priority:{{proposal.avgPriority}}</div>
       <div class="proposal proposalPriority">My Priority:{{proposal.myPriority}}</div>
+      <div class="proposal proposalUserName" *ngIf="proposal.displayUserName">Created By:{{proposal.userName}}</div>
       <div class="proposal proposalDetail">{{proposal.details}}</div>
       <div class="row" *ngIf="login && userLocationId==proposal.locationId">
         <div class="col-md-5">

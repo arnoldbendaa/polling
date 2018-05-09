@@ -1,43 +1,33 @@
 <p class="text-center Header">
-  <span class="FirstLetter">H&nbsp;</span>
-  <span class="SecondLetter">o&nbsp;</span>
-  <span class="ThirdLetter">o&nbsp;</span>
-  <span class="fourthLetter">p&nbsp;</span>
-  <span class="fifthLetter">r&nbsp;</span>
-  <span class="sixthLetter">o&nbsp;</span>
-  <span class="seventhLetter">s&nbsp;</span>
+    <img src="assets/images/Hoopros_Name.png" />
 </p>
 <div class="login-page" [@routerTransition]>
     <div class="row justify-content-md-center">
+        <div class="container" style="max-width:100%;">
+                <flash-messages></flash-messages>
+        </div>
+        <form role="form" (ngSubmit)="f.form.valid && Login()" #f="ngForm" type="POST"  novalidate>
+            <div class="form-content">
+                <h3 class="LoginToHoopros"><span class="First">L</span>OGIN TO <span class="First">H</span>OOPROS</h3>
 
-      <div class="col-md-4">
-        <h3 class="LoginToHoopros"><span class="First">L</span>OGIN TO <span class="First">H</span>OOPROS</h3>
-            <div class="container">
-                    <flash-messages></flash-messages>
-            </div>
-            <form role="form" (ngSubmit)="f.form.valid && Login()" #f="ngForm" type="POST"  novalidate>
-                <div class="form-content">
-                    <div class="form-group">
-                        <input type="text" name="mail" [(ngModel)]="mail" #username="ngModel"
-                         class="form-control input-underline input-lg"
-                         id="loginMail" placeholder="{{ 'Email' | translate }}" required>
-
-                    </div>
-                                <div *ngIf="f.submitted && !username.valid" class="help-block text-danger" >{{ 'Email is required and format should be' | translate }}</div>
-
-                    <div class="form-group">
-                        <input type="password" class="form-control input-underline input-lg"  placeholder="{{ 'Password' | translate }}" #ppp="ngModel" [(ngModel)]="password"  name="password" required>
-                    </div>
-                              <div *ngIf="f.submitted && !ppp.valid" class="help-block text-danger">{{ 'Password is required' | translate }}</div>
-
+                <div class="form-group">
+                    <input type="text" name="mail" [(ngModel)]="mail" #username="ngModel"
+                     class="form-control input-underline input-lg"
+                     id="loginMail" placeholder="{{ 'Email' | translate }}" required>
+                </div>
+                <div *ngIf="f.submitted && !username.valid" class="help-block text-danger" >{{ 'Email is required and format should be' | translate }}</div>
+                <div class="form-group">
+                    <input type="password" class="form-control input-underline input-lg"  placeholder="{{ 'Password' | translate }}" #ppp="ngModel" [(ngModel)]="password"  name="password" required>
+                </div>
+                <div *ngIf="f.submitted && !ppp.valid" class="help-block text-danger">{{ 'Password is required' | translate }}</div>
+                <p style="color:black;">REGISTRATION IS REQUIRED TO CREATE OR VOTE ON PROPOSALS</p>
                   <div class="form-group">                         <a [routerLink] = "['/lostPassword']">{{ 'Forget Password' | translate }}</a>
                     </div>
 
-                </div>
-                <button class="btn rounded-btn"   >   {{ 'Log in' | translate }} </button>
-                &nbsp;
-                <a class="btn rounded-btn" [routerLink]="['/signup']">{{ 'Register' | translate }}</a>
-            </form>
-        </div>
+            </div>
+            <button class="btn rounded-btn"   >   {{ 'Log in' | translate }} </button>
+            &nbsp;
+            <a class="btn rounded-btn" [routerLink]="['/signup']">{{ 'Register' | translate }}</a>
+        </form>
     </div>
 </div>

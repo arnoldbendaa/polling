@@ -43,7 +43,15 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "proposal":{
+      "type":"belongsTo",
+      "model":"client",
+      "foreignKey":"createdUser",
+      "primaryKey":"userId"
+    }
+
+  },
   "acls": [],
   "methods": {}
 }

@@ -111,6 +111,10 @@ export class SignupComponent implements OnInit {
       }
       this.loc.province.name = "Please Select a Province";
       this.loc.province.id = 0;
+      this.loc.city.name = "";
+      this.loc.comunity.name = "";
+      this.cities = [];
+      this.communities = [];
 
     });
   }
@@ -139,6 +143,8 @@ export class SignupComponent implements OnInit {
       }
       this.loc.city.name = "Please Select a City";
       this.loc.city.id = 0;
+      this.loc.comunity.name = "";
+      this.communities = [];
     });
   }
   changedCity($event) {
@@ -190,7 +196,7 @@ export class SignupComponent implements OnInit {
   findId(name,lists){
     let result = -1;
     for (var i = 0; i < lists.length; i++) {
-      if (lists[i].name == name) {
+      if (lists[i].name.toUpperCase() == name.toUpperCase()) {
         result = lists[i].id;
         break;
       }

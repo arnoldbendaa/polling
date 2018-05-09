@@ -28,11 +28,14 @@ $fontSize2:6.5em;
     }
     .input-underline {
         background: 0 0;
-        border: none;
         box-shadow: none;
         border-bottom: 2px solid rgba(255, 255, 255, 0.5);
-        color: #fff;
         border-radius: 0;
+      border:1px solid #ced4da;
+      -webkit-border-radius: 0.25rem;
+      -moz-border-radius: 0.25rem;
+      border-radius: 0.25rem;
+
     }
     .input-underline:focus {
         border-bottom: 2px solid #fff;
@@ -70,21 +73,21 @@ $fontSize2:6.5em;
     .form-group {
         padding: 8px 0;
         input::-webkit-input-placeholder {
-            color: rgba(255, 255, 255, 0.6) !important;
+            color: rgba(48, 48, 48, 0.6) !important;
         }
 
         input:-moz-placeholder {
             /* Firefox 18- */
-            color: rgba(255, 255, 255, 0.6) !important;
+            color: rgba(48, 48, 48, 0.6) !important;
         }
 
         input::-moz-placeholder {
             /* Firefox 19+ */
-            color: rgba(255, 255, 255, 0.6) !important;
+            color: rgba(48, 48, 48, 0.6) !important;
         }
 
         input:-ms-input-placeholder {
-            color: rgba(255, 255, 255, 0.6) !important;
+            color: rgba(48, 48, 48, 0.6) !important;
         }
     }
     .user-avatar {
@@ -144,4 +147,11 @@ $fontSize2:6.5em;
   .First{
     font-size:1.3em;
   }
+}
+input{
+}
+.Header img{
+  width:38%;
+  margin-top:20px;
+  margin-bottom:20px;
 }

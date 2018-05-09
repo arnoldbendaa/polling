@@ -55,6 +55,7 @@ module.exports = function(Proposal) {
 
 
     var Vote = Proposal.app.models.Vote;
+    var Client = Proposal.app.models.Client;
     var i = 0;
     var len = proposals.length;
     if(len<1){
@@ -63,10 +64,12 @@ module.exports = function(Proposal) {
     }
 
     proposals.forEach(function(proposal,index){
+        Client.findById(proposal.createdUser,function(err,instance){
+            proposals[index].userName = instance.username;
+        });
       var sum = 0 ;
       Vote.count({proposalId: proposal.id}, function(err, count) {
         proposals[index].count = count;
-
         Vote.count({proposalId:proposal.id,votingResult:1},function (err,count) {
           if(proposals[index].count>0){
             var yespro = Math.round(100*count/proposals[index].count);
@@ -75,7 +78,6 @@ module.exports = function(Proposal) {
           }else { //any body votted.
             proposals[index].votingResult = "Yes : 0% , No : 0%";
           }
-
         });
 
         Vote.find({where:{proposalId: proposal.id,userId:userId}},function(error,voteProposal){
@@ -124,7 +126,7 @@ module.exports = function(Proposal) {
       for(var i= 0 ; i < voteLen; i++)
         proposalIds.push(votes[i].proposalId);
       console.log(proposalIds);
-      Proposal.find({where:{id:{inq:proposalIds}}},function(err,proposals){
+      Proposal.find({where:{id:{inq:proposalIds}},order:'date desc'},function(err,proposals){
         getProposalList(proposals,cb);
       });
     })
@@ -135,11 +137,11 @@ module.exports = function(Proposal) {
 
 
 
-      Proposal.find({where:{"locationId" : locationId}},function(error,proposals){
+      Proposal.find({where:{"locationId" : locationId},order:'date desc'},function(error,proposals){
         getProposalList(proposals,cb);
       });
     }else if(locationId==0){
-      Proposal.find({},function(err,proposals){
+      Proposal.find({order:'date desc'},function(err,proposals){
         getProposalList(proposals,cb);
       })
     }
@@ -166,7 +168,7 @@ module.exports = function(Proposal) {
      cb(null,"invalid token");
      return;
    }
-   Proposal.find({},function(error,proposals) {
+   Proposal.find({order:'date desc'},function(error,proposals) {
     getProposalListForVote(proposals,cb,userId);
    })
   }
@@ -180,11 +182,11 @@ module.exports = function(Proposal) {
     }
     if(locationId>0){
       
-      Proposal.find({where:{locationId:locationId}},function(error,proposals) {
+      Proposal.find({where:{locationId:locationId},order:'date desc'},function(error,proposals) {
         getProposalListForVote(proposals,cb,userId);
       });
     }else if(locationId==0){
-      Proposal.find({},function(error,proposals) {
+      Proposal.find({order:'date desc'},function(error,proposals) {
         getProposalListForVote(proposals,cb,userId);
       });
     }
@@ -195,7 +197,7 @@ Proposal.getMyPropoals = function(userId,cb){
     cb(null,"invalid param");
     return;
   }
-  Proposal.find({where:{createdUser:userId} },function(err,proposals){
+  Proposal.find({where:{createdUser:userId},order:'date desc' },function(err,proposals){
     getProposalList(proposals,cb);
   })
 }
@@ -208,11 +210,11 @@ Proposal.getMyProposalsInLocation = function(req,cb){
     return;
   }
   if(locationId>0){
-    Proposal.find({where:{locationId:locationId,createdUser:userId}},function(error,proposals) {
+    Proposal.find({where:{locationId:locationId,createdUser:userId},order:'date desc'},function(error,proposals) {
       getProposalList(proposals,cb);
     });
   }else{
-    Proposal.find({where:{createdUser:userId}},function(error,proposals) {
+    Proposal.find({where:{createdUser:userId},order:'date desc'},function(error,proposals) {
       getProposalList(proposals,cb);
     });
   }
@@ -222,8 +224,9 @@ Proposal.searchProposal = function(req,cb){
   var keyword = req.query.keyword;
   var locationId = req.query.locationId;
   var userId = req.query.userId;
-  if(locationId>0){
-    var ds = Proposal.dataSource;
+  var ds = Proposal.dataSource;
+
+    if(locationId>0){
     var query = "CALL getLocationIds("+locationId+");"
     var params = [locationId];
     console.log(query);
@@ -235,62 +238,49 @@ Proposal.searchProposal = function(req,cb){
         var string=JSON.stringify(data);
         var json =  JSON.parse(string);
         var locationIds = json[0][0].result;
-        // console.log(json[0][0]);
 
         var arrLocationIds = locationIds.split(",");
 
-        console.log(arrLocationIds);
-        Proposal.find({
-          where:{and:
-            [
-              {"locationId":{inq:arrLocationIds}},
-              { or: [
-                  {"title":{"like":"%"+keyword+"%"}},
-                  {"details":{"like":"%"+keyword+"%"}}
-                ]
-              }
-            ] 
-          }
-        },function(err,instnaces){
-          if(userId>0)
-            getProposalListForVote(instnaces,cb,userId);
-          else 
-           getProposalList(instnaces,cb);
-        })
-    
+        var query = "SELECT proposal.* FROM proposal LEFT JOIN `client` ON proposal.`createdUser` = `client`.`userId`"+
+        "LEFT JOIN `location` ON proposal.`locationId` = location.`id` WHERE " +
+        "(title LIKE '%"+keyword+"%' OR details LIKE '%"+keyword+"%' OR `client`.`username` LIKE '%"+keyword+"%')"+
+        "AND proposal.`locationId` IN ("+arrLocationIds+") order by `date` desc ";
+        ds.connector.execute(query,params,function (err,instnaces) {
+            if(userId>0)
+                getProposalListForVote(instnaces,cb,userId);
+            else
+                getProposalList(instnaces,cb);
+        });
+
       }
     })
   }else{
-    Proposal.find({
-      where:{ or: [
-          {"title":{"like":"%"+keyword+"%"}},
-          {"details":{"like":"%"+keyword+"%"}}
-        ]
-      }
-    },function(err,instnaces){
-      // getProposalList(instnaces,cb);
-      console.log("err is ");
-      console.log(err);
-      // console.log(instnaces);
-      if(userId>0)
-        getProposalListForVote(instnaces,cb,userId);
-      else 
-        getProposalList(instnaces,cb);
-    })  
+      var params = [];
+      var query = "SELECT proposal.* FROM proposal LEFT JOIN `client` ON proposal.`createdUser` = `client`.`userId`"+
+          "LEFT JOIN `location` ON proposal.`locationId` = location.`id` WHERE " +
+          "(title LIKE '%"+keyword+"%' OR details LIKE '%"+keyword+"%' OR `client`.`username` LIKE '%"+keyword+"%') order by `date` desc ";
+      ds.connector.execute(query,params,function (err,instnaces) {
+          if(userId>0)
+              getProposalListForVote(instnaces,cb,userId);
+          else
+              getProposalList(instnaces,cb);
+      });
   }
 }
 
 Proposal.voteOne = function(req,cb){
-  var proposalId = req.query.proposalId;
-  var voteValue = req.query.voteValue;
-  var priority = req.query.priority;
-  var userId = req.query.userId;
+  var proposalId = parseInt(req.query.proposalId);
+  var voteValue = parseInt(req.query.voteValue);
+  var priority = parseInt(req.query.priority);
+  var userId = parseInt(req.query.userId);
   var Vote = Proposal.app.models.Vote;
   var voteInst;
   var date = new Date();
   var current_hour = date.getHours();
   var votingTime = date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
 
+  if(isNaN(priority))
+    priority = 0 ;
   voteInst = new Vote({
       userId:userId,
       votingResult:voteValue,
@@ -299,14 +289,19 @@ Proposal.voteOne = function(req,cb){
       priority:priority
   });
 Vote.find({where:{proposalId: proposalId,userId:userId}},function(error,voteProposal){
-  if(voteProposal.length>0)
-    voteInst.id = voteProposal[0].id;
-  else
-    voteInst.id = -1;
-  console.log(voteInst.id);
-    Vote.upsert(voteInst,function(err,ins){
-      cb(null,null);
+  if(voteProposal.length>0){
+      Vote.upsertWithWhere({proposalId: proposalId,userId:userId},voteInst,function(err,ins){
+          cb(null,null);
+      })
+  }else{
+    Vote.create(voteInst,function (err,inst) {
+        cb(null,null);
     })
+  }
+  // console.log(voteInst.id);
+  //   Vote.upsertWithWhere({proposalId: proposalId,userId:userId},voteInst,function(err,ins){
+  //     cb(null,null);
+  //   })
   });
 }
 Proposal.searchMyProposalforVote = function(req,cb){
@@ -339,7 +334,7 @@ Proposal.searchMyProposalforVote = function(req,cb){
                 ]
               }
             ] 
-          }
+          },order:'date desc'
         },function(err,instnaces){
             getProposalListForVote(instnaces,cb,userId);
         })

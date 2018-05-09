@@ -21,7 +21,7 @@ export class CreateProposalComponent implements OnInit {
   }
   proposal={
     title:"",
-    dates:{"year":2018,"month":1,"day":12},
+    dates:{"year":(new Date()).getFullYear(),"month":(new Date()).getMonth()+1,"day":(new Date()).getDate()},
     date:"",
     details:"",
     locationId:"",

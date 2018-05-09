@@ -43,6 +43,12 @@ export class DashboardComponent implements OnInit {
       this.userLocationId = JSON.parse(localStorage.user).locationId;
       this.locationComponent.preLocationId = this.userLocationId;
     }
+    this.locationService.change.subscribe(locationChanged=>{
+      let url = this.router.url;
+      if(url.indexOf("dashboard")>0)
+
+        this.searchProposals();
+    })
 
 
     this.proposalService.getTopMonthProposals().subscribe(res=>{
@@ -82,6 +88,9 @@ export class DashboardComponent implements OnInit {
   }
 
   setPage(page:number){
+    if(this.pager.totalPages==0){
+      this.dataSourceSearch=[];
+    }
     if (page < 1 || page > this.pager.totalPages) {
         return;
     }

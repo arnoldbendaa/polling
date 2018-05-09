@@ -5,10 +5,8 @@ $fontSize2:6.5em;
 }
 .homeTitle{
   font-family: "Times New Roman",Times,Serif;
-  font-size:2.5em;
+  font-size:1.5em;
   font-weight: 900;
-  text-shadow: 2px 2px #333333;
-  text-align:right;
 }
 .title{
   color:rgb(67,139,196);
@@ -34,7 +32,9 @@ button{
   margin-top:30px;
   font-weight: bold;
   cursor:pointer;
-
+}
+.proposalUserName{
+  color:rgb(0,102,0);
 }
 .proposalVote,.proposalDate,.proposalPriority{
   color:rgb(0,102,214)
@@ -70,48 +70,27 @@ button{
 .pagination li a{
   cursor:pointer;
 }
-.FirstLetter{
-  font-size:$fontSize1;
-  text-shadow: -10px 0px #333333;
-}
-.SecondLetter{
-  font-size:$fontSize2;
-  text-shadow: -7px 0px #333333;
-
-}
-.ThirdLetter{
-  font-size:$fontSize2;
-  text-shadow: -4px 0px #333333;
-
-}
-.fourthLetter{
-  font-size:$fontSize2;
-  text-shadow: -2px 0px #333333;
-
-}
-.fifthLetter{
-  font-size:$fontSize2;
-  text-shadow: 3px 0px #333333;
-
-}
-.sixthLetter{
-  font-size:$fontSize2;
-  text-shadow: 5px 0px #333333;
-
-}
-.seventhLetter{
-  font-size:$fontSize2;
-  text-shadow: 7px 0px #333333;
-
-}
-.Header span{
-  font-family:"Times New Roman",Times,Serif;
-  font-weight: 900;
-  color:rgb(4,96,248);
-}
 .Header{
   margin:0;
 }
 .deciding{
   color:rgb(34,171,27);
+  font-size:19px;
+}
+img{
+  width:39%;
+}
+.proposalLink a{
+  color:rgb(150,22,22);
+  font-weight: bold;
+}
+.menuBtns a{
+  color: #22ab1b;
+  font-size:24px;
+  font-family: "Times New Roman",Times,Serif;
+  font-weight:bold;
+}
+.menuBtns{
+  margin-top:25px;
+  margin-bottom:15px;
 }
