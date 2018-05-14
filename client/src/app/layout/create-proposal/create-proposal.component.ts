@@ -49,6 +49,12 @@ export class CreateProposalComponent implements OnInit {
     if(this.detailWindow){
       // console.log("vote proposal");
       // console.log(this.proposal);
+      if(this.proposal.myPriority>100 || this.proposal.myPriority<0){
+        // Swal("Please input between 0~100");
+        this.flashMessagesService.show("Please input between 0~100", {cssClass: 'alert-danger', timeout: 3000});
+        return;
+      }
+
       var userId = JSON.parse(localStorage["user"]).userId;
       var proposals = [this.proposal];
       this.proposalService.vote(proposals,userId).subscribe(data=>{

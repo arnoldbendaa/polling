@@ -25,9 +25,6 @@
         <button class="input-group-addon" (click)="d.toggle()" type="button" disabled>
           <span class="fa fa-calendar"></span>
         </button>
-        <small [hidden]="date.valid || (date.pristine && !f.submitted)" class="text-danger" *ngIf="!detailWindow">
-          {{ 'The field is required' | translate }}
-        </small>
 
       </fieldset>
       <p>&nbsp;</p>
@@ -78,7 +75,7 @@
             max="100"
             [(ngModel)]="proposal.myPriority"
             name="something"></mat-slider>
-          <input matInput type="number" [(ngModel)]="proposal.myPriority" name="sss" id="createPrioriry"  [disabled]="!canvote">
+          <input matInput type="number" [(ngModel)]="proposal.myPriority" min="0" max="100" name="sss" id="createPrioriry"  [disabled]="!canvote">
         </div>
       </div>
       <div class="container">

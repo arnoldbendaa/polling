@@ -99,6 +99,10 @@ export class VoteProposalComponent implements OnInit {
         console.log(event.value);
         console.log(proposalId);
         console.log(priority);
+        if(priority>100 || priority<0){
+            Swal("Please input between 0~100");
+            return;
+        }
         var userId = JSON.parse(localStorage.user).userId;
         this.proposalService.voteOne(proposalId,event.value,priority,userId).subscribe(res=>{
             Swal('Success Voted');
@@ -110,6 +114,10 @@ export class VoteProposalComponent implements OnInit {
         console.log(proposalId);
         console.log(priority);
         console.log(voteValue);
+        if(priority>100 || priority<0){
+            Swal("Please input between 0~100");
+            return;
+        }
         var userId = JSON.parse(localStorage.user).userId;
         this.proposalService.voteOne(proposalId, voteValue,priority,userId).subscribe(res=>{
             Swal('Success Voted');

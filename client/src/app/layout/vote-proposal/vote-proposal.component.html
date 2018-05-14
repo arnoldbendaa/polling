@@ -44,7 +44,7 @@
       <div class="col-md-6">
         <ng-container >
           My Priority
-          <input matInput type="number" [(ngModel)]="proposal.myPriority" name="sss" (change)="changePriority(proposal.id,$event.target.value,proposal.myVote)">
+          <input matInput type="number" min="0" max="100" [(ngModel)]="proposal.myPriority" name="sss" (change)="changePriority(proposal.id,$event.target.value,proposal.myVote)">
         </ng-container>
       </div>
     </div>

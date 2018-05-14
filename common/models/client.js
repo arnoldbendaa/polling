@@ -1,7 +1,7 @@
 'use strict';
 var config = require('../../server/config.json');
 var path = require('path');
-
+var qs = require('querystring');
 module.exports = function(Client) {
     Client.afterRemote('create', function(context, userInstance, next) {
         console.log('> user.afterRemote triggered');
@@ -9,6 +9,7 @@ module.exports = function(Client) {
             type: 'email',
             to: userInstance.email,
             from: 'noreply@loopback.com',
+            text:'{href}',
             subject: 'Thanks for registering.',
             template: path.resolve(__dirname, '../../server/views/verify.ejs'),
             redirect: config.front+"/login",

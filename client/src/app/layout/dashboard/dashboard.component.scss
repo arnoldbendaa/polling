@@ -85,10 +85,13 @@ img{
   font-weight: bold;
 }
 .menuBtns a{
-  color: #22ab1b;
+  padding:5px 13px;
+  color: rgb(8,48,113);
   font-size:24px;
   font-family: "Times New Roman",Times,Serif;
   font-weight:bold;
+  background-color:rgb(184,211,250);
+  box-shadow: 3px 3px rgb(117,122,130);
 }
 .menuBtns{
   margin-top:25px;

@@ -7,11 +7,10 @@
       <img src="assets/images/Hoopros_Name.png" />
     </p>
     <p class="text-center menuBtns">
-      <a [routerLink]="['/create-proposal']" title="Create a new proposal on how you can improve your community." >Create A New Proposal</a>
+      <a [routerLink]="['/create-proposal']" title="Create a new proposal on how you can improve your community.">create a new proposal</a>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <a [routerLink]="['/vote-proposal']" title="Vote on the community proposals created by other members of your community" >Vote On Proposals</a>
+      <a [routerLink]="['/vote-proposal']" title="Vote on the community proposals created by other members of your community">vote on proposals</a>
     </p>
-    <p class="text-center deciding">&nbsp;Deciding on the development of our communities together</p>
     <p class="text-center">Register to propose a great new idea for your community or vote on the proposals of other members of your community. This is the place to have your say!</p>
   </div>
   <div class="row">
@@ -55,7 +54,7 @@
         <div class="col-md-6">
           <ng-container >
              My Priority
-                <input matInput type="number" [(ngModel)]="proposal.myPriority" name="sss" (change)="changePriority(proposal.id,$event.target.value,proposal.myVote)">
+                <input matInput type="number"  min="0" max="100" [(ngModel)]="proposal.myPriority" name="sss" (change)="changePriority(proposal.id,$event.target.value,proposal.myVote)">
           </ng-container>
         </div>
       </div>
