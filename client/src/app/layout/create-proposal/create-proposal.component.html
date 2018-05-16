@@ -11,7 +11,7 @@
       <p>&nbsp;</p>
       <fieldset class="form-group">
         <label>{{ 'Proposal Title' | translate }}</label>
-        <input class="form-control" required maxlength="45" #title="ngModel" [(ngModel)]="proposal.title" name="title" [disabled]="detailWindow" >
+        <input class="form-control" required maxlength="100" #title="ngModel" [(ngModel)]="proposal.title" name="title" [disabled]="detailWindow" >
         <small [hidden]="title.valid || (title.pristine && !f.submitted)"  class="text-danger" *ngIf="!detailWindow">
           {{ 'The field is required' | translate }}
         </small>

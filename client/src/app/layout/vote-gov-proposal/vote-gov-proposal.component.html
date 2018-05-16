@@ -9,7 +9,7 @@
         <mat-header-cell *matHeaderCellDef> My Priority </mat-header-cell>
         <mat-cell *matCellDef="let element" >
           <div class="col-md-6" style="padding:0;">
-            <input matInput type="number" [(ngModel)]="element.myPriority" name="sss" style="width:100px;" [disabled]='!canVote'>
+            <input matInput type="number" [(ngModel)]="element.myPriority" name="sss" type="number" min="0" max="100" style="width:100px;" [disabled]='!canVote'>
           </div> </mat-cell>
       </ng-container>
       <ng-container matColumnDef="myVote">

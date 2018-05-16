@@ -82,6 +82,12 @@ export class VoteGovProposalComponent implements OnInit {
     // console.log(this.dataSource);
     let userId = JSON.parse(localStorage.user).userId;
     let locationId = this.locationService.getLocationIdFromLocation(this.locationComponent.location);
+    for(var i=0; i < this.dataSource.length; i++){
+      if(this.dataSource[i].myPriority>100){
+        Swal("Please input between 0~100");
+        return;
+      }
+    }
     this.proposalService.voteGov(this.dataSource,userId,locationId).subscribe(data=>{
       this.getGovProposalInLocation();
       Swal('Success Voted');
