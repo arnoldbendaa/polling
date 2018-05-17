@@ -14,7 +14,8 @@ module.exports = function(Proposal) {
     var i = 0;
     proposals.forEach(function(proposal,index){
       Client.findById(proposal.createdUser,function(err,instance){
-        proposals[index].userName = instance.username;
+          if(instance!=null)
+            proposals[index].userName = instance.username;
       });
       Vote.count({proposalId: proposal.id}, function(err, count) {
         proposals[index].count = count;

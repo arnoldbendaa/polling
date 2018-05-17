@@ -36,6 +36,7 @@ export class CreateProposalComponent implements OnInit {
   };
   detailWindow = false;
   canvote = true;
+  created = false;
  @ViewChild(LocationComponent)locationComponent:LocationComponent;
   ngOnInit() {
     let locationId = JSON.parse(localStorage.user).locationId;
@@ -68,7 +69,8 @@ export class CreateProposalComponent implements OnInit {
       this.proposal.createdUser = JSON.parse(localStorage["user"]).userId;
       this.proposal.date = this.proposal.dates.year + "-"+this.proposal.dates.month+"-"+this.proposal.dates.day;
       this.proposalService.createProposal(this.proposal).subscribe(data=>{
-        this.flashMessagesService.show("Success Created", {cssClass: 'alert-success', timeout: 3000});
+        this.created = true;
+        this.flashMessagesService.show("Your proposal has been submitted", {cssClass: 'alert-success', timeout: 3000});
       },error=>{
         this.flashMessagesService.show(error.error.error.message, {cssClass: 'alert-warning', timeout: 3000});
       })

@@ -82,7 +82,7 @@
         <flash-messages></flash-messages>
       </div>
       <p>&nbsp;</p>
-      <div class="row large-text-center" [hidden]="detailWindow">
+      <div class="row large-text-center" [hidden]="detailWindow || created">
         <button class="btn rounded-btn submit"   >   {{ 'Create' | translate }} </button>
       </div>
       <div class="row large-text-center" [hidden]="!detailWindow">
