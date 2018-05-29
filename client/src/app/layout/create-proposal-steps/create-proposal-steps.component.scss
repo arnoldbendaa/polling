@@ -1,0 +1,56 @@
+.mat-radio-button ~ .mat-radio-button {
+  padding-right: 16px;
+}
+mat-slider {
+  width: 300px;
+}
+.datePicker{
+  width:calc(100% - 45px);
+  display:inline-block;
+}
+.submit{
+  background-color:rgb(80,115,174);;
+  margin:auto;
+  color:white;
+  font-weight: bold;
+}
+form{
+  margin-top:30px;
+}
+#createPrioriry{
+  width:50px;
+  border-radius:0.25rem;
+}
+.proposalTitle{
+  color:#006600;
+}
+.voteContent{
+  font-weight: bold;
+}
+p{
+  margin-bottom:0;
+}
+
+.createProposalTitle{
+  font-family: "Times New Roman",Times,Serif;
+  font-weight:bold;
+  color:rgb(56,96,163);
+  font-size:33px;
+}
+.createProposalLabel{
+  color:white;
+  background-color:rgb(80,115,174);
+}
+
+/deep/ .mat-radio-label-content{
+  font-family: "Times New Roman",Times,Serif;
+  font-weight:bold;
+  color:black;
+  font-size:24px;
+}
+.priorityLabel{
+  font-family: "Times New Roman",Times,Serif;
+  font-weight:bold;
+  color:black;
+  font-size:20px;
+}

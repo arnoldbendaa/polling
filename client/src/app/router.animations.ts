@@ -3,9 +3,15 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 export function routerTransition() {
     return slideToTop();
 }
+export function routerTransitionRight() {
+    return slideToRight();
+}
+export function routerTransitionLeft() {
+    return slideToLeft();
+}
 
 export function slideToRight() {
-    return trigger('routerTransition', [
+    return trigger('routerTransitionRight', [
         state('void', style({})),
         state('*', style({})),
         transition(':enter', [
@@ -20,7 +26,7 @@ export function slideToRight() {
 }
 
 export function slideToLeft() {
-    return trigger('routerTransition', [
+    return trigger('routerTransitionLeft', [
         state('void', style({})),
         state('*', style({})),
         transition(':enter', [

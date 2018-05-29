@@ -8,7 +8,7 @@ import {ProposalDetailComponent} from "./proposal-detail/proposal-detail.compone
 import {VoteProposalComponent} from "./vote-proposal/vote-proposal.component";
 import {MyProposalComponent} from "./my-proposal/my-proposal.component";
 import {VoteGovProposalComponent} from "./vote-gov-proposal/vote-gov-proposal.component";
-
+import {CreateProposalStepsComponent} from "./create-proposal-steps/create-proposal-steps.component";
 const routes: Routes = [
   {
     path: '',
@@ -24,7 +24,8 @@ const routes: Routes = [
   {path:'proposal-detail/:id',component:ProposalDetailComponent,canActivate:[Auth1Guard]},
   {path:'vote-proposal',component:VoteProposalComponent,canActivate:[Auth1Guard]},
   {path:'my-proposal',component:MyProposalComponent,canActivate:[Auth1Guard]},
-  {path:'vote-gov-proposal',component:VoteGovProposalComponent,canActivate:[Auth1Guard]}
+  {path:'vote-gov-proposal',component:VoteGovProposalComponent,canActivate:[Auth1Guard]},
+  {path:'create-proposal-steps',component:CreateProposalStepsComponent,canActivate:[Auth1Guard]}
 
 ];
 

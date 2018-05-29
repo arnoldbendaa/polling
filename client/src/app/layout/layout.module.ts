@@ -24,6 +24,7 @@ import { ProposalDetailComponent } from './proposal-detail/proposal-detail.compo
 import { VoteProposalComponent } from './vote-proposal/vote-proposal.component';
 import { MyProposalComponent } from './my-proposal/my-proposal.component';
 import { VoteGovProposalComponent } from './vote-gov-proposal/vote-gov-proposal.component';
+import { CreateProposalStepsComponent } from './create-proposal-steps/create-proposal-steps.component';
 import {PagerServiceService} from '../services/pager-service.service';
 @NgModule({
   imports: [
@@ -43,7 +44,7 @@ import {PagerServiceService} from '../services/pager-service.service';
 
     MatSliderModule
   ],
-  declarations: [LayoutComponent,  CreateProposalComponent, DashboardComponent, ProposalDetailComponent, VoteProposalComponent, MyProposalComponent, VoteGovProposalComponent, ],
+  declarations: [LayoutComponent,  CreateProposalComponent, DashboardComponent, ProposalDetailComponent, VoteProposalComponent, MyProposalComponent, VoteGovProposalComponent,CreateProposalStepsComponent ],
     providers:[Auth1Guard,LocationService,ProposalService,PagerServiceService]
 })
 export class LayoutModule {}

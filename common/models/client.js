@@ -47,6 +47,49 @@ module.exports = function(Client) {
           console.log('> sending password reset email to:', info.email);
         });
       });
-      //...
+
+    Client.once('attached',function(){
+        Client.confirm = function(uid, token, redirect, fn) {
+            console.log("you clicked confirm function");
+            // fn = fn || utils.createPromiseCallback();
+            this.findById(uid, function(err, user) {
+                if (err) {
+                    fn(err);
+                } else {
+                    if (user && user.verificationToken === token) {
+                        user.verificationToken = token;
+                        user.emailVerified = true;
+                        user.save(function(err) {
+                            if (err) {
+                                fn(err);
+                            } else {
+                                fn();
+                            }
+                        });
+                    } else {
+                        if (user) {
+                            err = new Error('Invalid token: %s', token);
+                            err.statusCode = 400;
+                            err.code = 'INVALID_TOKEN';
+                        } else {
+                            err = new Error('User not found: %s', uid);
+                            err.statusCode = 404;
+                            err.code = 'USER_NOT_FOUND';
+                        }
+                        fn(err);
+                    }
+                }
+            });
+            return fn.promise;
+
+
+        };
+    });
+
+
+    Client.remoteMethod("getPropoals",{
+        http:{path:"/getPropoals",verb:'get'},
+        returns:{arg:'proposals',type:'string'}
+    });
 
 };

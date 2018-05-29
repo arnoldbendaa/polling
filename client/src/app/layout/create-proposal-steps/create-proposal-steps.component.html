@@ -1,0 +1,94 @@
+<div class="row" [@routerTransitionRight]>
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+    <div [@routerTransitionRight]>
+      <app-location  [hidden]="step<5"></app-location>
+    </div>
+
+    <div *ngIf="step==0||step>4" [@routerTransitionRight]>
+      <p>&nbsp;</p>
+      <p class="text-center createProposalTitle" style="margin-bottom:0;" *ngIf="step<5">Give Your Proposal A Title,</p>
+      <p class="text-center createProposalTitle"  *ngIf="step<5">Use Up To 200 Characters And A Descriptive Name</p>
+      <fieldset class="form-group">
+        <label class="createProposalLabel">&nbsp;{{ 'Proposal Title' | translate }}&nbsp;</label>
+        <input class="form-control" required maxlength="100" #title="ngModel" [(ngModel)]="proposal.title" name="title"
+        placeholder="Enter your proposal title here using up to 80 characters then click the continue button below">
+      </fieldset>
+    </div>
+
+    <div  *ngIf="step==1||step>4" [@routerTransitionRight]>
+      <p class="text-center createProposalTitle"  *ngIf="step<5">Enter the Location of Your Proposal</p>
+      <fieldset class="form-group">
+        <a class="createProposalLabel" style="color:white;">&nbsp;{{ 'Location Link' | translate }}&nbsp;</a>
+        <input class="form-control"   #link="ngModel" [(ngModel)]="proposal.locationLink" name="locationLink"
+               placeholder="Copy/Paste a Map URL or Enter a Location Description then click the continue button below">
+      </fieldset>
+    </div>
+
+    <div  *ngIf="step>4" [@routerTransitionRight]>
+      <fieldset class="form-group">
+        <label class="createProposalLabel">{{ 'Proposal Date' | translate }}</label>
+        <input class="form-control datePicker" placeholder="yyyy-mm-dd H:i:s" required maxlength="15" disabled
+               name="dp" [(ngModel)]="proposal.dates" #date="ngModel"  ngbDatepicker #d="ngbDatepicker">
+        <button class="input-group-addon" (click)="d.toggle()" type="button" disabled>
+          <span class="fa fa-calendar"></span>
+        </button>
+      </fieldset>
+      <p>&nbsp;</p>
+    </div>
+
+    <div  *ngIf="step==2||step>4" [@routerTransitionRight]>
+      <p class="text-center createProposalTitle"  *ngIf="step<5">Provide A Detailed Description of Your Proposal</p>
+      <fieldset class="form-group">
+        <label class="createProposalLabel">&nbsp;{{ 'Detailed Description' | translate }}&nbsp;</label>
+        <textarea class="form-control" [(ngModel)]="proposal.details" name="details" #details="ngModel" required maxlength="1024"
+                  placeholder="Describe your new proposal in 200 words or less.  then click the continue button below."
+        ></textarea>
+      </fieldset>
+    </div>
+
+    <div  *ngIf="step==3||step>4" [@routerTransitionRight]>
+      <p class="text-center createProposalTitle"  *ngIf="step<5">Would You Like to Display Your Username?</p>
+      <label class="createProposalLabel">&nbsp;{{ 'Display User Name' | translate }} &nbsp;</label>
+      <div class="form-group text-center">
+        <!--<div class="col-md-6">Create user:{{proposal.userName}}</div>-->
+        <p class="text-center" style="margin-bottom:0;" *ngIf="step<5">Would you like to display Your username in your proposal? If you would like to click Yes if you would not <br> click the No button.</p>
+        <p class="text-center" *ngIf="step<5">Then click the continue button below.</p>
+          <mat-radio-group [(ngModel)]="proposal.displayUserName" name="display"  [disabled]="!canvote">
+            <mat-radio-button value="1" name="yes">Yes</mat-radio-button>
+            <span style="font-size:24px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <mat-radio-button value="0" name="no">No</mat-radio-button>
+          </mat-radio-group>
+      </div>
+    </div>
+
+    <div  *ngIf="step==4||step>4" [@routerTransitionRight]>
+      <p class="text-center createProposalTitle"  *ngIf="step<5">What is the Priority of Your Proposal?</p>
+      <label class="createProposalLabel">&nbsp;{{ 'Set Priority' | translate }}(%)&nbsp;</label>
+      <p class="text-center" style="margin-bottom:0;"  *ngIf="step<5">What priority would you like to set for your proposal, you can slide the bar and determine a priority from 0 to 100%</p>
+      <p class="text-center"  *ngIf="step<5">Then click the continue button below.</p>
+      <div class="form-group">
+        <span class="priorityLabel">Select A Value Between 0 and 100%.</span>
+        <mat-slider  [disabled]="!canvote"
+                     thumbLabel min="0"
+                     max="100"
+                     [(ngModel)]="proposal.myPriority"
+                     name="something"></mat-slider>
+        <input matInput type="number" [(ngModel)]="proposal.myPriority" min="0" max="100" name="sss" id="createPrioriry"  [disabled]="!canvote">
+      </div>
+    </div>
+
+      <div class="container">
+        <flash-messages></flash-messages>
+      </div>
+      <p>&nbsp;</p>
+      <div class="row large-text-center">
+        <button class="btn rounded-btn submit" (click)="Prev();"  >   {{btnPrev}} </button>
+        <button class="btn rounded-btn submit" (click)="submitProposal();" *ngIf="step>4"  [hidden]="created">   Submit </button>
+        <button class="btn rounded-btn submit" (click)="Continue();"  >   {{btnNext}} </button>
+      </div>
+
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+  </div>
+</div>

@@ -4,10 +4,10 @@
     <p class="text-center Header" style="margin-top:50px;">
       <img src="assets/images/Hoopros_Name.png" />
     </p>
-    <h6 class="text-center makeTitle" style="margin-bottom:20px;">Make your community better sign up and share your ideas.</h6>
+    <h6 class="text-center makeTitle" style="margin-bottom:20px;">Make your community better - sign up and share your ideas.</h6>
 
     <p class="text-center menuBtns">
-      <a [routerLink]="['/create-proposal']" title="Create a new proposal on how you can improve your community.">create a new proposal</a>
+      <a [routerLink]="['/create-proposal-steps']" title="Create a new proposal on how you can improve your community.">create a new proposal</a>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <a [routerLink]="['/vote-proposal']" title="Vote on the community proposals created by other members of your community">vote on proposals</a>
     </p>
@@ -17,7 +17,7 @@
       <h2 class="title homeTitle"></h2>
     </div>
     <div class="col-md-4 searchText">
-      <input type="text" class="form-control" (keyup.enter)="searchProposals()" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Search for a proposal to improve a community" type="search" [(ngModel)]="keyword">
+      <input type="text" class="form-control" (keyup.enter)="searchProposals()" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Please input search criterial to display proposals" type="search" [(ngModel)]="keyword">
       <span class="input-group-addon" (click)="searchProposals()">
         <i class="fa fa-search"></i>
       </span>
@@ -72,7 +72,7 @@
   </div>
   <div class="row" *ngIf="dataSourceSearch.length < 1">
     <div class="col-md-8 offset-2">
-      No Result
+      There is no result.
     </div>
   </div>
 
