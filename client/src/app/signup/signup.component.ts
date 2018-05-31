@@ -59,6 +59,8 @@ export class SignupComponent implements OnInit {
       return;
     }
     this.user.locationId = this.loc.comunity.id;
+    var now = new Date();
+
     this.authService.registerUser(this.user).subscribe(data => {
       let dataType: User;
       dataType = <User>data;

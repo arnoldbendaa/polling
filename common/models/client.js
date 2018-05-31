@@ -1,8 +1,7 @@
 'use strict';
 var config = require('../../server/config.json');
 var path = require('path');
-var qs = require('querystring');
-module.exports = function(Client) {
+var qs = require('querystring');module.exports = function(Client) {
     Client.afterRemote('create', function(context, userInstance, next) {
         console.log('> user.afterRemote triggered');
         var options = {
@@ -15,38 +14,40 @@ module.exports = function(Client) {
             redirect: config.front+"/login",
             user: Client
           };
+        console.log("user Instance is ");
+        console.log(userInstance);
           userInstance.verify(options, function(err, response, next) {
             if (err) return next(err);
 
             console.log('> verification email sent:', response);
-            // context.res.render('response', {
-            //   title: 'Signed up successfully',
-            //   content: 'Please check your email and click on the verification link ' -
-            //       'before logging in.',
-            //   redirectTo: '/',
-            //   redirectToLinkText: 'Log in'
-            // });
-          });
-              next();
 
+          });
+        next();
     });
+    Client.beforeRemote( 'create', function(context, userInstance, next){
+        userInstance.created = Date.now();
+        context.args.data.created = Date.now();
+
+        next();
+
+    })
     Client.on('resetPasswordRequest', function(info) {
 
-        var url = 'http://' + config.host +  '/reset-password';
-        var html = 'Click <a href="' + url + '?access_token=' +
-        info.accessToken.id + '">here</a> to reset your password';
-        console.log(html);
-        //'here' in above html is linked to : 'http://<host:port>/reset-password?access_token=<short-lived/temporary access token>'
-        Client.app.models.Email.send({
-          to: info.email,
-          from: info.email,
-          subject: 'Password reset',
-          html: html
-        }, function(err) {
-          if (err) return console.log('> error sending password reset email');
-          console.log('> sending password reset email to:', info.email);
-        });
-      });
+            var url = 'http://' + config.host +  '/reset-password';
+            var html = 'Click <a href="' + url + '?access_token=' +
+            info.accessToken.id + '">here</a> to reset your password';
+            console.log(html);
+            //'here' in above html is linked to : 'http://<host:port>/reset-password?access_token=<short-lived/temporary access token>'
+            Client.app.models.Email.send({
+              to: info.email,
+              from: info.email,
+              subject: 'Password reset',
+              html: html
+            }, function(err) {
+              if (err) return console.log('> error sending password reset email');
+              console.log('> sending password reset email to:', info.email);
+            });
+    });
 
     Client.once('attached',function(){
         Client.confirm = function(uid, token, redirect, fn) {

@@ -28,6 +28,9 @@
     "birthDay": {
       "type": "date"
     },
+    "created": {
+      "type": "date"
+    },
     "address": {
       "type": "string"
     },
