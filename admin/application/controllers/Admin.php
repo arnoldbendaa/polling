@@ -164,6 +164,32 @@ Class Admin extends CI_Controller
         $result = $this->db->query($sql);
         redirect(base_url()."Admin/viewUsers");
     }
+    public function changePassword($msg=null){
+        $data["msg"] = $msg;
+        $this->load->view("admin/changePassword",$data);
+    }
+    public function doChangePassword(){
+        $currentPassword = $this->input->post("currentPassword");
+        $newPassword = $this->input->post("newPassword");
+        $confirmPassword = $this->input->post("confirmPassword");
+        if(empty($currentPassword)||empty($newPassword)||$newPassword!=$confirmPassword){
+            $this->outError("Invalid Param");
+            return;
+        }
+        $dbResult = $this->db->query("SELECT * FROM admin WHERE `password`=MD5('$currentPassword');")->result();
+        if(empty($dbResult)){
+            redirect(base_url()."Admin/changePassword/incorrect password");
+            return;
+        }
+        $sql = "Update admin set password=md5('$newPassword') where password=md5('$currentPassword')";
+        $this->db->query($sql);
+        $this->outSuccess();
+        redirect(base_url()."Admin/changePassword/Success");
+    }
+    public function community(){
+
+        $this->load->view("Admin/community");
+    }
     public function outSuccess(){
         $result["err"]=0;
         $result["errMsg"] = "Success";
