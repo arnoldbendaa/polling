@@ -24,22 +24,7 @@ Class Admin extends CI_Controller
         $this->load->view('admin/viewProposals');
     }
     public function viewUsers(){
-        $results = $this->db->query("select * from client order by created")->result();
-        foreach($results as $key=>$result){
-            $locationId = $result->locationId;
-            $sql = "SELECT (SELECT `name` FROM location WHERE id=$locationId) AS communityName,
-                    (SELECT parentId FROM location WHERE id=$locationId ) AS cityId,
-                    (SELECT `name` FROM location WHERE id=cityId) AS cityName,
-                    (SELECT parentId FROM location WHERE id=cityId ) AS provinceId,
-                    (SELECT `name` FROM location WHERE id=provinceId) AS provinceName,
-                    (SELECT parentId FROM location WHERE id=provinceId ) AS coutnryId,
-                    (SELECT `name` FROM location WHERE id=coutnryId) AS coutnryName";
-            $locationResult = $this->db->query($sql)->result();
-            $locationString = $locationResult[0]->coutnryName.",".$locationResult[0]->provinceName.",".$locationResult[0]->cityName.",".$locationResult[0]->communityName;
-            $results[$key]->locationString = $locationString;
-        }
-        $data["results"] = $results;
-        $this->load->view('admin/viewUsers',$data);
+        $this->load->view('admin/viewUsers');
     }
     public function removeUser($userId){
         $id = intval($userId);
@@ -111,7 +96,7 @@ Class Admin extends CI_Controller
             $locationResult = $this->db->query($sql)->result();
             $locationString = $locationResult[0]->coutnryName.",".$locationResult[0]->provinceName.",".$locationResult[0]->cityName.",".$locationResult[0]->communityName;
             $actionString = "<i class=\"fa fa-trash\"style=\"cursor:pointer\" id=\"pop_".$result->userId."\" data-id=\"".$result->userId."\" data-toggle=\"confirmation\" ></i>&nbsp;
-                                            <i style=\"cursor:pointer\" class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i>";
+                                            <a href='".base_url()."Admin/editUser/".$result->userId."'><i style=\"cursor:pointer\" class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i></a>";
             $dbresults[$key] = [$result->username,$result->email,$result->emailVerified==1?"Yes":"No",$locationString,$result->created,$actionString];
         }
         $result = [];
@@ -120,6 +105,64 @@ Class Admin extends CI_Controller
         $result['recordsFiltered'] = $recordsFiltered;
         $result['data'] = $dbresults;
         echo json_encode($result);
+    }
+    public function editUser($userId){
+        $countryResult = $this->db->query("select * from location where depth=0 order by name")->result();
+        $data['countries'] = $countryResult;
+        $dbResult = $this->db->query("select * from client where userId=$userId")->result();
+        if(empty($dbResult)){
+            echo "Invalid Param";
+            return;
+        }
+        $locationId = $dbResult[0]->locationId;
+        $sql = "SELECT (SELECT `name` FROM location WHERE id=$locationId) AS communityName,
+                    (SELECT parentId FROM location WHERE id=$locationId ) AS cityId,
+                    (SELECT `name` FROM location WHERE id=cityId) AS cityName,
+                    (SELECT parentId FROM location WHERE id=cityId ) AS provinceId,
+                    (SELECT `name` FROM location WHERE id=provinceId) AS provinceName,
+                    (SELECT parentId FROM location WHERE id=provinceId ) AS countryId,
+                    (SELECT `name` FROM location WHERE id=countryId) AS coutnryName";
+        $locationDb = $this->db->query($sql)->result();
+        $data['countryId'] = $locationDb[0]->countryId;
+        $data['provinceId'] = $locationDb[0]->provinceId;
+        $data['cityId'] = $locationDb[0]->cityId;
+        $data['communityId'] = $locationId;
+
+        $data['user']=$dbResult[0];
+        $this->load->view('admin/editUser',$data);
+    }
+    public function getProvinces($countryId){
+        if($countryId<1){
+            $this->outError("Invalid Param");
+        }
+        $resultdb = $this->db->query("select id,name from location where parentId=$countryId and depth=1 order by name")->result();
+        echo json_encode($resultdb);
+    }
+    public function getCities($provinceId){
+        if($provinceId<1){
+            $this->outError("Invalid Param");
+        }
+        $resultdb = $this->db->query("select id,name from location where parentId=$provinceId and depth=2 order by name")->result();
+        echo json_encode($resultdb);
+    }
+    public function getCommunities($cityId){
+        if($cityId<1){
+            $this->outError("Invalid Param");
+        }
+        $resultdb = $this->db->query("select id,name from location where parentId=$cityId and depth=3 order by name")->result();
+        echo json_encode($resultdb);
+    }
+
+    public function editUserLocation(){
+        $locationId = $this->input->post('community');
+        $userId = $this->input->post("userId");
+        if($userId<1 || $locationId<1 ) {
+            $this->outError("Invalid Param");
+            return;
+        }
+        $sql = "UPDATE `client` SET locationId=$locationId WHERE userId=$userId";
+        $result = $this->db->query($sql);
+        redirect(base_url()."Admin/viewUsers");
     }
     public function outSuccess(){
         $result["err"]=0;
